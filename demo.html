@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Channel 2API · 本地演示面板</title>
+<style>
+  :root {
+    --bg: #0b0f14; --panel: #121821; --panel-2: #171f2b; --line: #24303f;
+    --text: #e6edf6; --muted: #8b9bb0; --accent: #6ee7b7; --accent-2: #60a5fa; --warn: #fbbf24; --bad: #f87171;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: radial-gradient(1200px 600px at 15% -10%, #16233a 0%, var(--bg) 55%);
+         color: var(--text); font: 14px/1.6 -apple-system, "Segoe UI", "Microsoft YaHei", Roboto, sans-serif; }
+  header { display: flex; align-items: center; gap: 14px; padding: 16px 22px; border-bottom: 1px solid var(--line);
+           background: rgba(11,15,20,.7); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 5; }
+  header h1 { font-size: 16px; margin: 0; letter-spacing: .3px; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--bad); display: inline-block; margin-right: 6px; }
+  .dot.ok { background: var(--accent); }
+  main { display: grid; grid-template-columns: 320px minmax(0,1fr) 320px; gap: 16px; padding: 16px 22px 40px; align-items: start; }
+  @media (max-width: 1180px) { main { grid-template-columns: 1fr; } }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .panel > h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+                margin: 0; padding: 12px 14px; border-bottom: 1px solid var(--line); background: var(--panel-2); }
+  .panel-body { padding: 12px 14px; }
+  .row { display: flex; gap: 8px; align-items: center; }
+  input, select, textarea, button { font: inherit; color: var(--text); background: #0e141c;
+         border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; outline: none; }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent-2); }
+  button { cursor: pointer; background: #1b2634; transition: .15s; }
+  button:hover { background: #22303f; }
+  button.primary { background: linear-gradient(135deg, #2563eb, #0ea5e9); border-color: transparent; font-weight: 600; }
+  button.primary:hover { filter: brightness(1.1); }
+  .bot { display: flex; gap: 10px; padding: 8px; border-radius: 10px; cursor: pointer; align-items: center; }
+  .bot:hover { background: #18222e; }
+  .bot.active { background: #1d2b3c; box-shadow: inset 0 0 0 1px var(--accent-2); }
+  .bot img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; background: #1c2734; }
+  .bot .name { font-weight: 600; font-size: 13px; }
+  .bot .sub { color: var(--muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px; }
+  #botList { max-height: 420px; overflow: auto; }
+  #chat { height: 460px; overflow: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .msg { max-width: 86%; padding: 9px 12px; border-radius: 12px; white-space: pre-wrap; word-break: break-word; }
+  .msg.user { align-self: flex-end; background: #1d3a5c; border: 1px solid #2b5581; }
+  .msg.bot { align-self: flex-start; background: #18222e; border: 1px solid var(--line); }
+  .msg.meta { align-self: center; color: var(--muted); font-size: 11px; background: transparent; border: none; }
+  .composer { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--line); background: var(--panel-2); }
+  .composer textarea { flex: 1; resize: none; height: 64px; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 12px; }
+  .kv span:nth-child(odd) { color: var(--muted); }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11.5px; }
+  pre { background: #0b1119; border: 1px solid var(--line); border-radius: 10px; padding: 10px; overflow: auto; max-height: 180px; }
+  .pin { color: var(--accent); }
+  .pill { font-size: 11px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  .warn { color: var(--warn); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Channel 2API · 本地演示面板</h1>
+  <span class="badge" id="health"><span class="dot"></span>connecting…</span>
+  <span class="badge">上游 XMPP: x.siki.ai</span>
+  <span class="badge" id="poolBadge">pool —</span>
+  <span style="flex:1"></span>
+  <button id="refreshBots">刷新 Bot 目录</button>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Bot 目录（= 可切换“模型”）</h2>
+    <div class="panel-body" style="display:flex;flex-direction:column;gap:8px;">
+      <div class="row">
+        <input id="search" placeholder="搜索角色…" style="flex:1" />
+        <select id="type">
+          <option value="character">对话</option>
+          <option value="image">绘图</option>
+          <option value="">全部</option>
+        </select>
+      </div>
+      <div id="botList"></div>
+      <div class="row" style="justify-content:space-between">
+        <span class="pill" id="botCount">—</span>
+        <a href="/api/showcase" target="_blank" style="color:var(--accent-2);font-size:12px">showcase 原始 JSON</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" style="display:flex;flex-direction:column">
+    <h2><span id="chatTitle">对话</span></h2>
+    <div id="chat"></div>
+    <div class="composer">
+      <textarea id="input" placeholder="输入消息…（Enter 发送，Shift+Enter 换行）"></textarea>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="primary" id="send">发送</button>
+        <button id="clear">清空</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>运行态</h2>
+    <div class="panel-body" style="display:flex;flex-direction:column;gap:12px">
+      <div class="kv" id="statsBox"></div>
+      <div>
+        <div class="row" style="justify-content:space-between;margin-bottom:6px">
+          <strong style="font-size:12px">游客账号</strong>
+          <button id="newAccount" style="padding:4px 8px;font-size:12px">新建（无短信）</button>
+        </div>
+        <div class="kv" id="accountBox"><span>状态</span><span class="warn">未创建</span></div>
+      </div>
+      <div>
+        <div class="row" style="justify-content:space-between;margin-bottom:6px">
+          <strong style="font-size:12px">最近一次响应</strong>
+          <button id="toggleRaw" style="padding:4px 8px;font-size:12px">原始 JSON</button>
+        </div>
+        <pre id="lastRaw">—</pre>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let currentBot = null;
+let lastAssistantEl = null;
+
+function el(tag, cls, text) {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function addMsg(kind, text) {
+  const node = el('div', 'msg ' + kind, text);
+  $('chat').appendChild(node);
+  $('chat').scrollTop = $('chat').scrollHeight;
+  return node;
+}
+
+async function jget(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+  return res.json();
+}
+
+async function health() {
+  try {
+    const data = await jget('/health');
+    $('health').innerHTML = '<span class="dot ok"></span>online · v' + (data.version || '?');
+    $('poolBadge').textContent = 'pool ' + (data.pool ? `${data.pool.live_sessions}/${data.pool.pool_size}` : '—');
+  } catch (e) {
+    $('health').innerHTML = '<span class="dot"></span>offline';
+  }
+}
+
+async function stats() {
+  try {
+    const s = await jget('/stats');
+    const box = $('statsBox');
+    box.innerHTML = '';
+    const rows = [
+      ['运行时长', (s.uptime_s ?? 0) + ' s'],
+      ['请求 / 成功 / 失败', `${s.requests} / ${s.chat_ok} / ${s.chat_error}`],
+      ['延迟 p50 / p95', `${s.latency_ms?.p50 ?? '—'} / ${s.latency_ms?.p95 ?? '—'} ms`],
+      ['账号创建', s.pool ? `${s.pool.accounts_created}（复用 ${s.pool.reused}）` : '—'],
+      ['活会话', s.pool ? `${s.pool.live_sessions}/${s.pool.pool_size}` : '—'],
+    ];
+    rows.forEach(([k, v]) => { box.appendChild(el('span', '', k)); box.appendChild(el('span', '', v)); });
+  } catch (e) { /* ignore */ }
+}
+
+async function loadBots() {
+  const q = $('search').value.trim();
+  const type = $('type').value;
+  const url = q ? `/api/bots?q=${encodeURIComponent(q)}&limit=80&type=${type}`
+                : `/api/bots?limit=80&type=${type}`;
+  const list = $('botList');
+  list.innerHTML = '<div class="bot"><span class="sub">加载中…</span></div>';
+  try {
+    const data = await jget(url);
+    list.innerHTML = '';
+    $('botCount').textContent = data.data.length + ' 个';
+    for (const bot of data.data) {
+      const row = el('div', 'bot');
+      const img = el('img');
+      img.src = bot.avatar || '';
+      img.loading = 'lazy';
+      img.onerror = () => { img.style.visibility = 'hidden'; };
+      const meta = el('div');
+      meta.appendChild(el('div', 'name', bot.display_name || bot.id));
+      meta.appendChild(el('div', 'sub', `${bot.type} · ${bot.interactions ?? 0} 次互动`));
+      row.append(img, meta);
+      row.onclick = () => selectBot(bot, row);
+      list.appendChild(row);
+    }
+  } catch (e) {
+    list.innerHTML = `<div class="bot"><span class="sub warn">加载失败: ${e.message}</span></div>`;
+  }
+}
+
+function selectBot(bot, row) {
+  document.querySelectorAll('.bot.active').forEach((n) => n.classList.remove('active'));
+  if (row) row.classList.add('active');
+  currentBot = bot;
+  $('chatTitle').textContent = `对话 · ${bot.display_name}`;
+  addMsg('meta', `已选择 ${bot.display_name} (${bot.id}) · ${bot.type}`);
+}
+
+async function send() {
+  const text = $('input').value.trim();
+  if (!text) return;
+  if (!currentBot) { addMsg('meta', '先在左侧选择一个 Bot'); return; }
+  $('input').value = '';
+  addMsg('user', text);
+  lastAssistantEl = addMsg('bot', '…');
+  const t0 = performance.now();
+  try {
+    const res = await fetch('/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ model: currentBot.id, messages: [{ role: 'user', content: text }] }),
+    });
+    const data = await res.json();
+    const ms = Math.round(performance.now() - t0);
+    if (!res.ok) {
+      lastAssistantEl.textContent = '❌ ' + (data.error?.message || res.status);
+      lastAssistantEl.classList.add('meta');
+    } else {
+      lastAssistantEl.textContent = data.choices?.[0]?.message?.content || '(空回复)';
+      const x = data.x_channel || {};
+      addMsg('meta', `首字节 ${x.first_token_ms ?? '—'} ms · 总耗时 ${ms} ms · ${x.parts ?? 1} 段`);
+      $('lastRaw').textContent = JSON.stringify(data, null, 2);
+    }
+  } catch (e) {
+    lastAssistantEl.textContent = '❌ ' + e.message;
+  }
+  stats();
+}
+
+async function newAccount() {
+  const box = $('accountBox');
+  box.innerHTML = '<span>状态</span><span class="warn">创建中…</span>';
+  try {
+    const res = await fetch('/api/accounts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error?.message || res.status);
+    box.innerHTML = '';
+    const rows = [
+      ['JID', data.jid],
+      ['PUBLICTOKEN', data.publictoken],
+      ['JWT', (data.jwt || '').slice(0, 18) + '…'],
+      ['energy', `${data.balances?.energy ?? '?'}/${data.balances?.maxEnergy ?? '?'}`],
+    ];
+    rows.forEach(([k, v]) => { box.appendChild(el('span', '', k)); box.appendChild(el('span', 'pin', String(v))); });
+    $('lastRaw').textContent = JSON.stringify(data, null, 2);
+  } catch (e) {
+    box.innerHTML = `<span>状态</span><span class="warn">失败: ${e.message}</span>`;
+  }
+  stats();
+}
+
+$('send').onclick = send;
+$('clear').onclick = () => { $('chat').innerHTML = ''; };
+$('refreshBots').onclick = loadBots;
+$('search').onkeydown = (e) => { if (e.key === 'Enter') loadBots(); };
+$('type').onchange = loadBots;
+$('newAccount').onclick = newAccount;
+$('toggleRaw').onclick = () => {
+  const pre = $('lastRaw');
+  pre.style.display = pre.style.display === 'none' ? 'block' : 'none';
+};
+$('input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+});
+
+health(); stats(); loadBots();
+setInterval(() => { health(); stats(); }, 8000);
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# runtime state (contains live account credentials — never commit)
+accounts.jsonl
+accounts*.jsonl
+*.log
+
+# heavy / regenerable reverse-engineering output
+jadx_out/
+artifacts/dex_strings.txt
+*.apk
+
+# os / editor
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/
