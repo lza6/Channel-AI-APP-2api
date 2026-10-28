@@ -5,6 +5,7 @@
 
 * 逆向细节：见 [`docs/ANALYSIS.md`](docs/ANALYSIS.md)
 * **对接 new-api：见 [`docs/NEWAPI_INTEGRATION.md`](docs/NEWAPI_INTEGRATION.md)**（含渠道参数、超时、坑表）
+* **一页交接（给对接会话）：见 [`docs/HANDOFF.md`](docs/HANDOFF.md)**（含可直接粘贴的 prompt）
 * 一句话原理：`游客注册(IQ jabber:iq:register) → SASL(JWT) → vCard(publictoken) → XMPP 发消息收回复`
 * **纯协议**：运行期只有 socket + XML 报文 + 几个 HTTPS 调用，**不装 APK、不开模拟器、不用 Frida**
   （`pure_protocol_demo.py` 是 100 行标准库单文件复现，可直接当"这是纯协议"的证据）
@@ -189,6 +190,7 @@ python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 | `pure_protocol_demo.py` | **纯协议最小复现**：人造 device_id → 注册 → JWT → publictoken → 对话，仅标准库，无 APK/模拟器/Frida |
 | `docs/ANALYSIS.md` | 逆向分析报告（协议、鉴权链、坑表、绘图链路） |
 | `docs/NEWAPI_INTEGRATION.md` | new-api 对接指南（路径 A 零代码 / 路径 B 原生渠道 + 参数与坑表） |
+| `docs/HANDOFF.md` | 一页交接单：15 分钟验收路径 + 渠道配置表 + 8 坑表 + 验收清单 + 可粘贴 prompt |
 | `artifacts/` | 原始报文留档（多轮对话 XML、绘图报文、dex 字符串） |
 | `jadx_out/` | 全量反编译产物（34,945 个 java 文件） |
 | `xmpp_client.py` / `probe_*.py` / `matrix*.py` / `vcard_*.py` / `*_test.py` | 首轮探针脚本（定位协议时的一次性实验，保留作证据） |
