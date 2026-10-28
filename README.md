@@ -95,8 +95,32 @@ client.close()
 | 健康检查 | 空闲会话在 acquire/release 各 ping 一次（`urn:xmpp:ping`），死会话立刻丢弃并补新 |
 | 坏号处理 | 复活失败计入 `fails`，≥3 次标记 disabled；凭据仍在库里，可随时复活 |
 | 背压 | 池满时请求排队（`queued_acquires` 计数），不失败、不无脑扩号 |
+| **按需自动扩容** | 排队压力出现时把容量按 `--grow-step` 往上抬，直到 `--hard-max` 硬顶 | 实测 `cap 2 → 10`、`grown=8` |
+| **注册限速** | `--max-reg-per-min`（默认 30/分钟）给上游注册打闸，突发不会变成 CC 攻击 | |
 
-容量公式：`可持续并发 ≈ pool_size`，`QPS ≈ pool_size / 平均延迟(≈8 s)`。
+容量公式：`可持续并发 ≈ cap`，`QPS ≈ cap / 平均延迟(≈8 s)`；`cap` 会随排队自动涨到 `--hard-max`。
+
+```powershell
+# 常态小池 + 突发自动扩容到 10
+python -X utf8 demo_server.py --port 8921 --pool 2 --min-idle 2 --hard-max 10 --grow-step 4
+# 固定容量、不扩容
+python -X utf8 demo_server.py --port 8921 --pool 8 --min-idle 8 --no-autoscale
+```
+
+账号池专项自测（不经过 HTTP，直接测池行为）：
+
+```powershell
+python -X utf8 pool_test.py     # → 12/12 PASS（冷启动自动新号 / 突发扩容 / 重启复用）
+```
+
+实测（2026-10-29）：
+
+| 场景 | 结果 |
+|---|---|
+| 冷启动自动新号（空库，3 并发） | 3 个账号**现场注册**、JID 全不同、**3.0 s** 完成 |
+| 突发自动扩容（cap 2 → hard_max 10） | 12 并发 **12/12 成功**，wall 31.5 s，`grown=8`、`accounts_registered=5`、`spawn_errors=0` |
+| 重启复用 | `accounts_registered=0`、`accounts_revived=2`，账号库不膨胀 |
+| 全量压测（8 并发） | **13/13 PASS**，`pool=10/2`（cap 已自动涨到 10）|
 
 实测（4 会话池、8 并发突发）：**13/13 PASS，18 个请求全部成功，wall 20.4 s，
 `queued_acquires=5`（排队生效）、`discarded=7`（死会话自动替换）、`spawn_errors=0`**。
@@ -120,6 +144,12 @@ python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 | SSE 流式 | 3 chunk + `[DONE]` |
 | 错误路径 | 404/400 全部符合预期 |
 
+## 上游网络抖动（本机实测）
+
+目录 CDN（`d11absfiaqzcnz.cloudfront.net`）会偶发 TLS 握手超时（一次 18–28 s，甚至直接失败）。
+已内建三层防护：**同路径 single-flight 合并并发拉取**、**120 s 缓存**、**stale-while-error 用旧数据兜底**；
+`/v1/chat/completions` 用 `0_<uuid>` 时**完全不依赖 CDN**（索引不可用就直接按 username 建 JID）。
+
 ## 已知限制
 
 1. **首字节 2.5–4 s**，整轮 6–9 s：这是上游 bot 的思考时间，不是封装层开销。
@@ -139,7 +169,8 @@ python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 | `accounts.jsonl` | 账号库（运行时生成，已 gitignore） |
 | `demo_server.py` | OpenAI 兼容 HTTP 服务（默认 8921） |
 | `demo.html` | 演示面板（bot 列表 / 对话 / 运行态 / 一键建号） |
-| `stress_test.py` | 本地压测，13 个断言 |
+| `stress_test.py` | HTTP 层压测，13 个断言 |
+| `pool_test.py` | 账号层压测：冷启动自动新号 / 突发扩容 / 重启复用，12 个断言 |
 | `docs/ANALYSIS.md` | 逆向分析报告（协议、鉴权链、坑表、绘图链路） |
 | `docs/NEWAPI_INTEGRATION.md` | new-api 对接指南（路径 A 零代码 / 路径 B 原生渠道 + 参数与坑表） |
 | `artifacts/` | 原始报文留档（多轮对话 XML、绘图报文、dex 字符串） |

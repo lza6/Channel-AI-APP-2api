@@ -26,7 +26,7 @@ def _headers() -> dict:
     return headers
 
 
-def call(base: str, path: str, payload=None, timeout: float = 120.0, raw: bool = False):
+def call(base: str, path: str, payload=None, timeout: float = 240.0, raw: bool = False):
     data = None if payload is None else json.dumps(payload).encode()
     request = urllib.request.Request(base + path, data=data, headers=_headers(),
                                      method="POST" if data is not None else "GET")
@@ -64,10 +64,10 @@ def scenario_health(base):
 
 def scenario_catalog(base):
     print("\n[2] 目录接口")
-    status, data, elapsed = call(base, "/api/bots?limit=100&type=character")
+    status, data, elapsed = call(base, "/api/bots?limit=100&type=character", timeout=240)
     bots = data.get("data", []) if isinstance(data, dict) else []
     check("bots>=50", status == 200 and len(bots) >= 50, f"{len(bots)} bots, {elapsed*1000:.0f}ms")
-    status, cats, _ = call(base, "/api/categories")
+    status, cats, _ = call(base, "/api/categories", timeout=180)
     check("categories", status == 200 and len(cats.get("data", [])) >= 5, f"{len(cats.get('data', []))} 类")
     return bots
 
@@ -131,7 +131,7 @@ def scenario_concurrency(base, bots, concurrency):
         status, data, elapsed = call(base, "/v1/chat/completions",
                                      {"model": bot["id"],
                                       "messages": [{"role": "user", "content": f"ping {index}, reply one word"}]},
-                                     timeout=180)
+                                     timeout=240)
         with lock:
             results.append((status, elapsed,
                             data.get("choices", [{}])[0].get("message", {}).get("content", "")

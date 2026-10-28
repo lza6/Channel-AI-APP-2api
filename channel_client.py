@@ -494,7 +494,24 @@ def _extract_balance(raw: str) -> dict | None:
 # --------------------------------------------------------------------- REST
 def rest(path: str, jwt: str | None = None, jid: str | None = None,
          base: str = PRIVATE_API, payload: dict | None = None,
-         method: str | None = None, timeout: float = 30.0) -> tuple[int, object]:
+         method: str | None = None, timeout: float = 30.0,
+         retries: int = 1) -> tuple[int, object]:
+    """Tiny REST helper. One retry by default: TLS handshakes to the origin flake."""
+    last_error: Exception | None = None
+    for attempt in range(retries + 1):
+        try:
+            return _rest_once(path, jwt=jwt, jid=jid, base=base, payload=payload,
+                              method=method, timeout=timeout)
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            last_error = exc
+            if attempt < retries:
+                time.sleep(0.6 + attempt)
+    return 0, {"error": f"request failed: {type(last_error).__name__}: {last_error}"}
+
+
+def _rest_once(path: str, jwt: str | None = None, jid: str | None = None,
+               base: str = PRIVATE_API, payload: dict | None = None,
+               method: str | None = None, timeout: float = 30.0) -> tuple[int, object]:
     headers = {"client": "android", "Accept": "application/json"}
     if jwt:
         headers["Authorization"] = f"Bearer {jwt}"
@@ -522,21 +539,42 @@ def _maybe_json(body: bytes):
 
 
 class Catalog:
-    """Anonymous public catalog endpoints (no credentials needed)."""
+    """Anonymous public catalog endpoints (no credentials needed).
+
+    * single-flight: concurrent cold requests share one upstream fetch
+    * stale-while-error: if the CDN is unreachable we keep serving the last
+      known-good payload instead of failing the whole dashboard
+    """
 
     _cache: dict[str, tuple[float, object]] = {}
+    _locks: dict[str, threading.Lock] = {}
+    _lock_guard = threading.Lock()
     _ttl = 120
+
+    @classmethod
+    def _path_lock(cls, path: str) -> threading.Lock:
+        with cls._lock_guard:
+            lock = cls._locks.get(path)
+            if lock is None:
+                lock = cls._locks[path] = threading.Lock()
+            return lock
 
     @classmethod
     def _get(cls, path: str) -> object:
         cached = cls._cache.get(path)
         if cached and time.time() - cached[0] < cls._ttl:
             return cached[1]
-        status, data = rest(path, base=PUBLIC_API)
-        if status != 200:
-            raise ChannelError(f"catalog {path} -> {status} {data}")
-        cls._cache[path] = (time.time(), data)
-        return data
+        with cls._path_lock(path):
+            cached = cls._cache.get(path)
+            if cached and time.time() - cached[0] < cls._ttl:
+                return cached[1]
+            status, data = rest(path, base=PUBLIC_API, timeout=20, retries=1)
+            if status != 200:
+                if cached:                       # stale-while-error
+                    return cached[1]
+                raise ChannelError(f"catalog {path} -> {status} {data}")
+            cls._cache[path] = (time.time(), data)
+            return data
 
     @classmethod
     def categories(cls) -> list[dict]:

@@ -137,7 +137,7 @@ class AccountFactory:
     """Creates / revives single accounts."""
 
     def __init__(self, store: AccountStore, country: str = "US", verbose: bool = False,
-                 verify: bool = True, max_attempts: int = 3):
+                 verify: bool = False, max_attempts: int = 3):
         self.store = store
         self.country = country
         self.verbose = verbose
@@ -149,6 +149,12 @@ class AccountFactory:
 
     # ---------------------------------------------------------------- helpers
     def _finish(self, client: ChannelClient, account: Account | None) -> Account:
+        """Persist the account, then verify it over REST.
+
+        Verification is a *health hint*, not a gate: the chat path is XMPP, so a
+        flaky TLS handshake to the REST origin must not throw away a good account.
+        Only an explicit 401/403 disables it.
+        """
         record = account or Account(
             username=client.username or "",
             password=client.password or "",
@@ -161,12 +167,23 @@ class AccountFactory:
         record.publictoken = client.publictoken
         record.disabled = False
         record.fails = 0
+        self.store.upsert(record)          # persist first — never lose a live account
+
         if self.verify:
-            status, payload = rest("/api/v2/currency/balances", client.jwt, client.jid)
-            if status != 200:
+            status, payload = rest("/api/v2/currency/balances", client.jwt, client.jid,
+                                   timeout=15, retries=1)
+            if status in (401, 403):
+                record.disabled = True
+                record.note = f"verify rejected: {status} {payload}"
+                self.store.upsert(record)
                 client.close()
-                raise ChannelError(f"account verification failed: {status} {payload}")
-        self.store.upsert(record)
+                raise ChannelError(f"account rejected by upstream: {status}")
+            if status != 200:
+                record.note = f"verify skipped (network): {status} {str(payload)[:120]}"
+                self.store.upsert(record)
+                if self.verbose:
+                    print("   ! verify skipped:", record.note)
+
         self.store.mark_used(record.username)
         return record
 
@@ -232,38 +249,57 @@ class AccountFactory:
 
 
 class SessionPool:
-    """Self-healing pool of logged-in sessions.
+    """Self-healing, auto-growing pool of logged-in sessions.
 
-    * `min_idle` sessions are kept warm by a background thread (instant first hit)
-    * `max_size` caps concurrency (== upstream parallel capacity)
+    * `min_idle`  warm sessions kept ready by a background thread
+    * `max_size`  initial capacity (== how many chats run in parallel)
+    * `hard_max`  ceiling for autoscale; the pool grows when requests queue up
     * dead sessions are dropped and replaced transparently
+    * registrations are rate-limited so a burst cannot hammer the upstream
     """
 
     def __init__(self, max_size: int = 4, min_idle: int | None = None,
                  store_path: str = "accounts.jsonl", country: str = "US",
-                 verbose: bool = False, acquire_timeout: float = 120.0):
+                 verbose: bool = False, acquire_timeout: float = 120.0,
+                 autoscale: bool = True, hard_max: int | None = None,
+                 grow_step: int = 2, max_registrations_per_min: int = 30):
         self.max_size = max(1, max_size)
         self.min_idle = self.max_size if min_idle is None else max(0, min(min_idle, self.max_size))
+        self.autoscale = autoscale
+        self.hard_max = max(self.max_size, hard_max or max(self.max_size * 3, 12))
+        self.grow_step = max(1, grow_step)
+        self.max_registrations_per_min = max(1, max_registrations_per_min)
+        self._cap = self.max_size                       # current dynamic capacity
         self.store = AccountStore(store_path)
         self.factory = AccountFactory(self.store, country=country, verbose=verbose)
         self.acquire_timeout = acquire_timeout
         self._idle: list[ChannelClient] = []
-        self._total = 0                     # live sessions (idle + busy + spawning)
+        self._total = 0                                 # live sessions (idle + busy + spawning)
         self._cv = threading.Condition()
         self._closed = False
+        self._spawn_ts: list[float] = []                # registration rate limiter
         self._metrics = {"acquired": 0, "released": 0, "discarded": 0, "waited": 0,
-                         "spawn_errors": 0, "spawn_ms": []}
-        self._bindings: dict[int, str] = {}   # id(client) -> account username
+                         "spawn_errors": 0, "grown": 0, "spawn_ms": []}
+        self._bindings: dict[int, str] = {}             # id(client) -> account username
         self._maintainer = threading.Thread(target=self._maintain, name="pool-maintainer",
-                                           daemon=True)
+                                            daemon=True)
         self._maintainer.start()
 
     # ------------------------------------------------------------------ infra
-    def _spawn_locked(self) -> None:
-        """Reserve a slot; the caller creates the session outside the lock."""
-        self._total += 1
+    def _rate_limit_wait(self) -> None:
+        """Keep registrations under `max_registrations_per_min` (protects the upstream)."""
+        while True:
+            now = time.time()
+            with self._cv:
+                self._spawn_ts = [ts for ts in self._spawn_ts if now - ts < 60]
+                if len(self._spawn_ts) < self.max_registrations_per_min:
+                    self._spawn_ts.append(now)
+                    return
+                sleep_for = 60 - (now - self._spawn_ts[0]) + 0.1
+            time.sleep(max(0.1, sleep_for))
 
     def _create(self) -> ChannelClient:
+        self._rate_limit_wait()
         started = time.time()
         try:
             client, record = self.factory.provision()
@@ -303,13 +339,12 @@ class SessionPool:
                 if self._closed:
                     return
                 need = self.min_idle - len(self._idle)
-                can_spawn = self.max_size - self._total
+                can_spawn = self._cap - self._total
                 slots = min(need, can_spawn)
                 if slots <= 0:
                     self._cv.wait(5.0)
                     continue
                 self._total += slots
-            # spawn the reserved slots concurrently (registration is ~3-5 s each)
             threads = []
             for _ in range(slots):
                 thread = threading.Thread(target=self._spawn_one, daemon=True)
@@ -318,6 +353,15 @@ class SessionPool:
             for thread in threads:
                 thread.join()
 
+    def _grow_locked(self) -> int:
+        """Raise capacity after queue pressure. Caller holds `_cv`."""
+        if not self.autoscale or self._cap >= self.hard_max:
+            return 0
+        grown = min(self.grow_step, self.hard_max - self._cap)
+        self._cap += grown
+        self._metrics["grown"] += grown
+        return grown
+
     # ----------------------------------------------------------------- public
     def prewarm(self, count: int | None = None, block: bool = True) -> dict:
         want = self.min_idle if count is None else count
@@ -325,13 +369,13 @@ class SessionPool:
         while time.time() < deadline:
             with self._cv:
                 if len(self._idle) >= want:
-                    return {"warm": len(self._idle)}
+                    return {"warm": len(self._idle), "cap": self._cap}
             time.sleep(0.25)
         with self._cv:
-            return {"warm": len(self._idle)}
+            return {"warm": len(self._idle), "cap": self._cap}
 
     def acquire(self, timeout: float | None = None) -> ChannelClient:
-        """Hand out a validated, idle session; spawn one if the pool has capacity."""
+        """Hand out a validated session; register a new account when the pool must grow."""
         timeout = self.acquire_timeout if timeout is None else timeout
         deadline = time.time() + timeout
         while True:
@@ -344,14 +388,20 @@ class SessionPool:
                     if self._idle:
                         client = self._idle.pop()
                         break
-                    if self._total < self.max_size:
+                    if self._total < self._cap:
+                        self._total += 1
+                        break
+                    # queue pressure -> autoscale (bounded by hard_max)
+                    grown = self._grow_locked()
+                    if grown:
                         self._total += 1
                         break
                     remaining = deadline - time.time()
                     if remaining <= 0:
-                        raise ChannelError(f"account pool exhausted (max_size={self.max_size})")
+                        raise ChannelError(
+                            f"account pool exhausted (cap={self._cap}, hard_max={self.hard_max})")
                     waited = True
-                    self._cv.wait(remaining)
+                    self._cv.wait(min(remaining, 5.0))
             if client is None:                      # slot reserved -> create a session
                 try:
                     client = self._create()
@@ -403,6 +453,9 @@ class SessionPool:
             spawn = self._metrics["spawn_ms"]
             return {
                 "max_size": self.max_size,
+                "cap": self._cap,
+                "hard_max": self.hard_max,
+                "autoscale": self.autoscale,
                 "min_idle": self.min_idle,
                 "live_sessions": self._total,
                 "idle": len(self._idle),
@@ -411,6 +464,7 @@ class SessionPool:
                 "discarded": self._metrics["discarded"],
                 "queued_acquires": self._metrics["waited"],
                 "spawn_errors": self._metrics["spawn_errors"],
+                "grown": self._metrics["grown"],
                 "avg_spawn_ms": round(sum(spawn) / len(spawn), 1) if spawn else None,
                 "accounts_registered": self.factory.register_count,
                 "accounts_revived": self.factory.revive_count,

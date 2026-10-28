@@ -112,12 +112,22 @@ def resolve_bot(model: str) -> dict:
     Username-shaped ids (`0_…`, `pt_…`) are matched strictly — a fuzzy upstream
     search there would happily return an unrelated bot instead of a 404.
     """
-    index = bot_index()
     key = (model or "").strip()
+    catalog_ok = True
+    try:
+        index = bot_index()
+    except Exception:  # noqa: BLE001 - CDN down must not break chatting by username
+        index, catalog_ok = {}, False
     bot = index.get(key) or index.get(key.lower())
     if bot is not None:
         return bot
-    if not key or key.startswith(("0_", "pt_")):
+    if key.startswith(("0_", "pt_")):
+        if catalog_ok and index:
+            raise KeyError(model)          # index is healthy -> the id really is unknown
+        local = key.split("@")[0]          # CDN unavailable -> let the XMPP layer decide
+        return {"username": local, "bare_jid": f"{local}@x.siki.ai", "display_name": local,
+                "config_type": "character", "can_generate_text": True, "interactions": None}
+    if not key:
         raise KeyError(model)
     for item in Catalog.search(key, limit=5):
         if (item.get("display_name") or "").lower() == key.lower():
@@ -158,12 +168,16 @@ class Handler(BaseHTTPRequestHandler):
     # ------------------------------------------------------------- utilities
     def _json(self, status: int, payload) -> None:
         body = json.dumps(payload, ensure_ascii=False).encode()
-        self.send_response(status)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Content-Length", str(len(body)))
-        self.send_header("Access-Control-Allow-Origin", "*")
-        self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.send_response(status)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(body)
+        except OSError as exc:      # client aborted (timeout/close) — nothing to do
+            if os.environ.get("DEMO_VERBOSE"):
+                print(f"write failed: {exc}", flush=True)
 
     def _text(self, status: int, body: bytes, content_type: str) -> None:
         self.send_response(status)
@@ -452,6 +466,11 @@ def main() -> None:
     parser.add_argument("--min-idle", type=int,
                         default=int(os.environ.get("CHANNEL_MIN_IDLE", os.environ.get("CHANNEL_POOL", 4))))
     parser.add_argument("--store", default=os.environ.get("CHANNEL_ACCOUNTS", "accounts.jsonl"))
+    parser.add_argument("--hard-max", type=int, default=int(os.environ.get("CHANNEL_HARD_MAX", 0)))
+    parser.add_argument("--grow-step", type=int, default=int(os.environ.get("CHANNEL_GROW_STEP", 2)))
+    parser.add_argument("--max-reg-per-min", type=int,
+                        default=int(os.environ.get("CHANNEL_MAX_REG_PER_MIN", 30)))
+    parser.add_argument("--no-autoscale", action="store_true")
     parser.add_argument("--country", default=os.environ.get("CHANNEL_COUNTRY", "US"))
     parser.add_argument("--host", default="0.0.0.0")
     parser.add_argument("--api-key", default=os.environ.get("CHANNEL_API_KEY", ""))
@@ -468,7 +487,11 @@ def main() -> None:
         pass
 
     POOL = SessionPool(max_size=args.pool, min_idle=args.min_idle, store_path=args.store,
-                       country=args.country, verbose=bool(os.environ.get("CHANNEL_VERBOSE")))
+                       country=args.country, verbose=bool(os.environ.get("CHANNEL_VERBOSE")),
+                       autoscale=not args.no_autoscale,
+                       hard_max=args.hard_max or None,
+                       grow_step=args.grow_step,
+                       max_registrations_per_min=args.max_reg_per_min)
     global FACTORY
     FACTORY = POOL.factory
     server = ThreadingHTTPServer((args.host, args.port), Handler)

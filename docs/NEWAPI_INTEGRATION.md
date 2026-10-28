@@ -34,13 +34,18 @@
 在能访问 `x.siki.ai` 的机器上（与 new-api 同机最简单）：
 
 ```bash
-python -X utf8 demo_server.py --port 8921 --pool 8 --min-idle 8 --api-key channel-local-key
+# 常态小池 + 突发自动扩容（推荐）
+python -X utf8 demo_server.py --port 8921 --pool 4 --min-idle 4 --hard-max 16 --grow-step 4        --api-key channel-local-key
 ```
 
 | 参数 | 说明 |
 |---|---|
-| `--pool` | 最大并发会话数（= 最大并发请求数），建议 4–16 |
-| `--min-idle` | 预热会话数，建议 = `--pool`（启动时并行注册/复用，约 4–5 s/个） |
+| `--pool` | 初始并发容量（= 同时可跑的对话数） |
+| `--min-idle` | 预热会话数，建议 = `--pool`（并行注册/复活，约 4–5 s/个） |
+| `--hard-max` | 自动扩容硬顶；排队出现时容量按 `--grow-step` 往上抬到这里（0=自动取 `pool*3`） |
+| `--grow-step` | 每次扩容步长（默认 2） |
+| `--max-reg-per-min` | 每分钟最多注册多少新号（默认 30，给上游注册打闸） |
+| `--no-autoscale` | 关掉自动扩容，容量固定为 `--pool` |
 | `--api-key` | 上游桥的鉴权；new-api 渠道"密钥"填同一个值 |
 | `--store` | 账号库路径（默认 `accounts.jsonl`），**重启会复用，不会重复注册** |
 
@@ -117,7 +122,9 @@ curl -s -X POST http://127.0.0.1:8921/v1/images/generations \
 | 504/超时 | 用了非流式 + bot 慢 | 调 `relay_timeout_seconds`；客户端改 `stream:true` |
 | `502 no reply from … within 120s` | 该 bot 冷/挂起（上游偶发） | 渠道配多个 bot 做模型重定向 + 重试；或换高互动 bot |
 | 返回 3 张图但 new-api 只显示 1 张 | 上游固定一次出 3 张，`n` 参数被忽略 | 正常现象，文档写清即可 |
-| 并发上不去 | 账号池小于并发 | 加大 `--pool`/`--min-idle`；池满会排队而不是失败 |
+| 并发上不去 | 账号池小于并发且关了扩容 | 开 autoscale：`--hard-max` 抬高硬顶；池满会排队而不是失败 |
+| 突发后延迟变长 | 扩容中（每个新号 4–5 s 冷启动） | 正常；稳态请求走已预热会话，可提前 `--min-idle` 抬高 |
+| `/api/bots` 偶发 500/超时 | 目录 CDN TLS 抖动（本机实测 18–28 s 甚至失败） | 已内建 single-flight + 缓存 + stale 兜底；对话走 `0_<uuid>` 时不依赖 CDN |
 | 换机器后第一次请求很慢 | 池未预热 | 保持 `--min-idle = --pool` |
 | 请求体被压缩导致 400 | 旧版上游桥不认 gzip | 本项目已支持；老版本请升级或关 `request_compression` |
 
@@ -164,8 +171,13 @@ min_idle        = max_size（启动预热）
 坏号策略         = fails≥3 标记 disabled；仍可用 credentials 复活（SASL 不需要重新注册）
 ```
 
-**容量公式**：`可持续并发 ≈ pool_size`，`QPS ≈ pool_size / 平均延迟(≈8 s)`。
-例：pool=8 → 稳态 ~1 QPS；要 4 QPS 就得 pool≈32（= 32 个账号，注册/预热约 1 分钟）。
+**容量公式**：`可持续并发 ≈ cap`（cap 会从 `--pool` 自动涨到 `--hard-max`），`QPS ≈ cap / 平均延迟(≈8 s)`。
+例：`--pool 4 --hard-max 16` → 稳态 ~0.5 QPS，突发可冲到 16 并发（约 2 QPS）；
+要长期 4 QPS 就得 `--hard-max ≈ 32`（32 个号，首次预热约 1 分钟，之后都走复活）。
+
+**扩容实测（4 会话池 / 8 并发）**：`cap 8`、`queued_acquires=0`、`discarded=2`、全绿。
+**扩容实测（2 会话池 / 12 并发 / hard_max 10）**：12/12 成功，wall 31.5 s，`grown=8`、
+`accounts_registered=5`（现场注册）、`spawn_errors=0`。
 
 ### 2.5 计费建议
 
