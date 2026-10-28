@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import statistics
 import threading
 import time
@@ -15,10 +16,19 @@ import urllib.request
 RESULTS: list[tuple[str, bool, str]] = []
 
 
+API_KEY = os.environ.get("CHANNEL_API_KEY", "")
+
+
+def _headers() -> dict:
+    headers = {"Content-Type": "application/json"}
+    if API_KEY:
+        headers["Authorization"] = f"Bearer {API_KEY}"
+    return headers
+
+
 def call(base: str, path: str, payload=None, timeout: float = 120.0, raw: bool = False):
     data = None if payload is None else json.dumps(payload).encode()
-    request = urllib.request.Request(base + path, data=data,
-                                     headers={"Content-Type": "application/json"},
+    request = urllib.request.Request(base + path, data=data, headers=_headers(),
                                      method="POST" if data is not None else "GET")
     started = time.time()
     try:
@@ -149,7 +159,7 @@ def scenario_stream(base, bots):
     data = json.dumps({"model": bots[0]["id"], "stream": True,
                        "messages": [{"role": "user", "content": "say hi"}]}).encode()
     request = urllib.request.Request(base + "/v1/chat/completions", data=data,
-                                     headers={"Content-Type": "application/json"}, method="POST")
+                                     headers=_headers(), method="POST")
     chunks, done = 0, False
     started = time.time()
     with urllib.request.urlopen(request, timeout=180) as resp:

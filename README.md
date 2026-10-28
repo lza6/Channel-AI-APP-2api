@@ -104,14 +104,15 @@ client.close()
 ## 压测
 
 ```powershell
-python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 2
+$env:CHANNEL_API_KEY="channel-local-key"   # 仅当上游桥带 --api-key
+python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 ```
 
 最近一次实跑（本机，2026-10-29）：**13/13 PASS / 50.2s**
 
 | 项 | 结果 |
 |---|---|
-| `/health` × 15 | median ≈ 1 ms |
+| `/health` × 15 | median ≈ 1 ms（端口先 bind，预热在后台） |
 | 目录 `/api/bots` | 100 bots（冷启 13.8 s，之后命中 120 s 缓存） |
 | 游客账号 | 4.3 s（含 balances 校验） |
 | 串行对话 | median 7.7 s，首字节 2.6 s（热 bot，78 万互动）|
