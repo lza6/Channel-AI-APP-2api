@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-10-29T07:22:20",
+ "generated_at": "2026-10-29T07:24:17",
  "counts": {
-  "total": 278,
+  "total": 277,
   "character": 260,
-  "image": 18
+  "image": 17
  },
  "categories": [
   "🔥 Trending",
@@ -66,7 +66,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_6e9d3280-b6f8-48b8-b7c4-7ac0f44a9e48@x.siki.ai",
    "nsfw": false,
-   "interactions": 452465,
+   "interactions": 452467,
    "subtitle": "Swipe, chat, repeat.",
    "verified": true
   },
@@ -96,7 +96,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_8c5ed162-3680-49ad-bbc6-5b3f3dd46d6b@x.siki.ai",
    "nsfw": false,
-   "interactions": 387432,
+   "interactions": 387433,
    "subtitle": "Shy blonde woman with low self esteem",
    "verified": true
   },
@@ -441,7 +441,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_8c5ed162-3680-49ad-bbc6-5b3f3dd46d6b@x.siki.ai",
    "nsfw": false,
-   "interactions": 95760,
+   "interactions": 95761,
    "subtitle": "Shy Blonde Friends",
    "verified": true
   },
@@ -666,7 +666,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_219d7746-9534-417a-ac41-8b0cb65c1064@x.siki.ai",
    "nsfw": false,
-   "interactions": 64226,
+   "interactions": 64227,
    "subtitle": "Wife's best friend, staying the weekend",
    "verified": true
   },
@@ -1716,7 +1716,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_febd3c8d-a862-4d0b-ab5e-7438c26f7aea@x.siki.ai",
    "nsfw": false,
-   "interactions": 14889,
+   "interactions": 14891,
    "subtitle": "Wife's Sister back in town",
    "verified": true
   },
@@ -2258,21 +2258,6 @@
    "nsfw": false,
    "interactions": 9587,
    "subtitle": "Pastor's Wife organizing the fundraiser",
-   "verified": false
-  },
-  {
-   "id": "0_8c2d3164-df9d-406d-a377-1b13d08591b2",
-   "bare_jid": "0_8c2d3164-df9d-406d-a377-1b13d08591b2@x.siki.ai",
-   "publictoken": "pt_cf06f517-77f1-44b4-ad7f-48eb91303c94@x.siki.ai",
-   "display_name": "Rpg",
-   "type": "character",
-   "can_generate_text": true,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": "0_c10a83ef-13b8-4e91-ab2b-288b9e3d9358@x.siki.ai",
-   "nsfw": false,
-   "interactions": 8891,
-   "subtitle": "Ai game master for role play",
    "verified": false
   },
   {
@@ -3126,9 +3111,24 @@
    "can_face_swap": false,
    "image_generator_jid": "0_e7fa2ce6-6f53-4d41-8bac-007ba5fa6ea9@x.siki.ai",
    "nsfw": false,
-   "interactions": 2963,
+   "interactions": 2966,
    "subtitle": "Cold and lost young woman",
    "verified": true
+  },
+  {
+   "id": "0_9681a505-25c1-404e-adf6-7f85cef01879",
+   "bare_jid": "0_9681a505-25c1-404e-adf6-7f85cef01879@x.siki.ai",
+   "publictoken": "pt_aeaac01d-f6a7-4e5b-8467-c93de168fa7e@x.siki.ai",
+   "display_name": "Solinski ling",
+   "type": "character",
+   "can_generate_text": true,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": "0_219d7746-9534-417a-ac41-8b0cb65c1064@x.siki.ai",
+   "nsfw": false,
+   "interactions": 2965,
+   "subtitle": "A simple tomboy girl who wants to explore everything",
+   "verified": false
   },
   {
    "id": "0_89ca0886-a5a3-49c6-8b08-ba0a933eeaa8",
@@ -3218,6 +3218,21 @@
    "nsfw": false,
    "interactions": 2645,
    "subtitle": "Shy Thai girl with a gentle tropical charm",
+   "verified": false
+  },
+  {
+   "id": "0_25729f9a-bddc-4321-b8ea-1dc15d0de6f0",
+   "bare_jid": "0_25729f9a-bddc-4321-b8ea-1dc15d0de6f0@x.siki.ai",
+   "publictoken": "pt_d6e9064f-501f-441d-92a7-744654a41502@x.siki.ai",
+   "display_name": "Paige",
+   "type": "character",
+   "can_generate_text": true,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": "0_c936d631-f909-460a-8e7f-48f54bf2e04f@x.siki.ai",
+   "nsfw": false,
+   "interactions": 2451,
+   "subtitle": "A stepmom learning an unfamiliar household routine",
    "verified": false
   },
   {
@@ -3896,21 +3911,6 @@
    "verified": false
   },
   {
-   "id": "0_d306d72c-f358-495d-90d3-64d6b24f736d",
-   "bare_jid": "0_d306d72c-f358-495d-90d3-64d6b24f736d@x.siki.ai",
-   "publictoken": "pt_4ca00535-c9bb-432d-96fe-2ff1e4523995@x.siki.ai",
-   "display_name": "Sofia, Asian Lease Packet",
-   "type": "character",
-   "can_generate_text": true,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": "0_d9146221-91c1-440c-9334-d71a999c5350@x.siki.ai",
-   "nsfw": false,
-   "interactions": 241,
-   "subtitle": "Asian lease crush stuck on the same paperwork",
-   "verified": false
-  },
-  {
    "id": "0_7cbdc5e0-f1aa-4103-aea0-8ab5c8e3d4a9",
    "bare_jid": "0_7cbdc5e0-f1aa-4103-aea0-8ab5c8e3d4a9@x.siki.ai",
    "publictoken": "pt_c8696eb0-e034-4625-b3c7-1af84e3822c7@x.siki.ai",
@@ -3921,7 +3921,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_8c5ed162-3680-49ad-bbc6-5b3f3dd46d6b@x.siki.ai",
    "nsfw": false,
-   "interactions": 197,
+   "interactions": 201,
    "subtitle": "Shy Blonde Boy",
    "verified": true
   },
@@ -3936,9 +3936,9 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 5886820,
+   "interactions": 5886827,
    "subtitle": "Create daily life images",
-   "verified": false
+   "verified": true
   },
   {
    "id": "0_d9146221-91c1-440c-9334-d71a999c5350",
@@ -3951,23 +3951,8 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 911993,
+   "interactions": 911994,
    "subtitle": "Z-Image gets your prompts and delivers instantly.\nFrom raw amateur photos to anime, illustration, and cinematic fantasy, it creates exactly the style you want—fast and consistently. Your ideas stay intact, details don’t get lost, and even text comes out clean. If you want images that actually match what you imagine, Z-Image is made to wow.",
-   "verified": false
-  },
-  {
-   "id": "0_05d35190-fb62-450d-8665-26f5092d5c6e",
-   "bare_jid": "0_05d35190-fb62-450d-8665-26f5092d5c6e@x.siki.ai",
-   "publictoken": "pt_34be12e0-5aab-46cd-9d35-6ef486af3530@x.siki.ai",
-   "display_name": "Cyberrealistic Pony",
-   "type": "image",
-   "can_generate_text": false,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": null,
-   "nsfw": false,
-   "interactions": 808019,
-   "subtitle": "Awesome Pony Diffusion with some CyberRealistic elements",
    "verified": false
   },
   {
@@ -3981,23 +3966,8 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 769923,
+   "interactions": 769924,
    "subtitle": "Next-Level Amateur Style — now with stronger long-prompt understanding.",
-   "verified": false
-  },
-  {
-   "id": "0_c936d631-f909-460a-8e7f-48f54bf2e04f",
-   "bare_jid": "0_c936d631-f909-460a-8e7f-48f54bf2e04f@x.siki.ai",
-   "publictoken": "pt_72986acf-f6d9-47bb-992c-c65ac0080b90@x.siki.ai",
-   "display_name": "WAI Anime Ultra",
-   "type": "image",
-   "can_generate_text": false,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": null,
-   "nsfw": false,
-   "interactions": 677900,
-   "subtitle": "Turn your ideas into beautiful anime art. Generate expressive characters, stylish outfits, and vivid scenes with a fast, high-quality anime model built for creativity.",
    "verified": false
   },
   {
@@ -4011,7 +3981,7 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 211094,
+   "interactions": 211096,
    "subtitle": "Custom character by Stable_Yogi",
    "verified": false
   },
@@ -4046,6 +4016,21 @@
    "verified": false
   },
   {
+   "id": "0_5a1fed35-3279-4d4d-93c1-bc6a7cf48b92",
+   "bare_jid": "0_5a1fed35-3279-4d4d-93c1-bc6a7cf48b92@x.siki.ai",
+   "publictoken": "pt_5f0ab228-d664-43b3-bd1a-22e5fa8b8ca1@x.siki.ai",
+   "display_name": "Anime in real",
+   "type": "image",
+   "can_generate_text": false,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": null,
+   "nsfw": false,
+   "interactions": 121267,
+   "subtitle": "This lora focus on making anime character in realistic background, work well with:\n\nSolo\n\nDepth of field\n\nBlurry background",
+   "verified": false
+  },
+  {
    "id": "0_27c09e0f-9bd2-4e9d-ba81-f87189994b06",
    "bare_jid": "0_27c09e0f-9bd2-4e9d-ba81-f87189994b06@x.siki.ai",
    "publictoken": "pt_43d56ae4-f406-4036-87a0-73e1d182c8ef@x.siki.ai",
@@ -4061,6 +4046,21 @@
    "verified": false
   },
   {
+   "id": "0_2d6df959-8927-41dd-9567-757c42eb0d9c",
+   "bare_jid": "0_2d6df959-8927-41dd-9567-757c42eb0d9c@x.siki.ai",
+   "publictoken": "pt_f658f576-6f6e-4637-8fc0-ed208571fc10@x.siki.ai",
+   "display_name": "Thrillustrious XL",
+   "type": "image",
+   "can_generate_text": false,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": null,
+   "nsfw": false,
+   "interactions": 56194,
+   "subtitle": "A realistic illustrious model",
+   "verified": false
+  },
+  {
    "id": "0_bc98630a-dff4-4a1a-a152-098b4fe41bf0",
    "bare_jid": "0_bc98630a-dff4-4a1a-a152-098b4fe41bf0@x.siki.ai",
    "publictoken": "pt_e456e3dd-d7d7-4ab4-9933-924043f96165@x.siki.ai",
@@ -4071,23 +4071,23 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 54229,
+   "interactions": 54230,
    "subtitle": "Asura Style Lora.",
    "verified": false
   },
   {
-   "id": "0_cc395679-4bba-4677-bc9a-aed42855ebf9",
-   "bare_jid": "0_cc395679-4bba-4677-bc9a-aed42855ebf9@x.siki.ai",
-   "publictoken": "pt_e1524384-a399-4e08-980d-1005819c9482@x.siki.ai",
-   "display_name": "Prefect Illustrious XL",
+   "id": "0_22cb0472-50ee-4dec-b456-4dcf7332f019",
+   "bare_jid": "0_22cb0472-50ee-4dec-b456-4dcf7332f019@x.siki.ai",
+   "publictoken": "pt_a3f0aaaf-e84f-470d-a675-50b6aa15a66f@x.siki.ai",
+   "display_name": "Retro Cartoon / Toon - Style - | Illustrious XL by YeiyeiArt",
    "type": "image",
    "can_generate_text": false,
    "can_generate_images": true,
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 42552,
-   "subtitle": "Based on Prefect illustrious XL v2.0p with LoRA",
+   "interactions": 48106,
+   "subtitle": "Retro Cartoon Style",
    "verified": false
   },
   {
@@ -4116,9 +4116,9 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 31878,
+   "interactions": 31879,
    "subtitle": "A casual candid-style generator for natural poses, relaxed expressions, and realistic everyday moments.",
-   "verified": false
+   "verified": true
   },
   {
    "id": "0_1cafcaf3-f32b-4d50-90c3-954b89a30c55",
@@ -4131,23 +4131,8 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 30611,
+   "interactions": 30614,
    "subtitle": "This is an attempt at an all-in-one lora for generating the monster girls of MGE, with a focus on customisability and being able to select the features you want individually. Refer to the taglist for more details, there's a lot of them. Not everything works perfectly, so good results may require a bit of experimentation at times.\n\nBackground info:\n\"MGE\" Refers to the monster girl encyclopedia book series by Kenkou Cross.",
-   "verified": false
-  },
-  {
-   "id": "0_e4e4174d-60cc-4b47-84d8-34cbe46ad2b0",
-   "bare_jid": "0_e4e4174d-60cc-4b47-84d8-34cbe46ad2b0@x.siki.ai",
-   "publictoken": "pt_438266d1-03ea-427c-8e2a-00463fd17616@x.siki.ai",
-   "display_name": "Dreikoo style | Goofy Ai",
-   "type": "image",
-   "can_generate_text": false,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": null,
-   "nsfw": false,
-   "interactions": 28964,
-   "subtitle": "Dreikoo style, Illustrious XL",
    "verified": false
   },
   {
@@ -4161,8 +4146,23 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 19542,
+   "interactions": 19544,
    "subtitle": "Diversifies look of Flux women to avoid the same face.\n\nIt's a common problem in generative AI, in which the model generates people with identical appearances. Unlike with SD1.5/SDXL, this is not just a result of the diverse dataset converging into a single token like \"woman\". in Flux, Dev/Schnell were distilled from the Pro version, resulting in a loss of diversity.",
+   "verified": false
+  },
+  {
+   "id": "0_2b3599ac-c5d1-4367-987e-c4c8b62e6cde",
+   "bare_jid": "0_2b3599ac-c5d1-4367-987e-c4c8b62e6cde@x.siki.ai",
+   "publictoken": "pt_d596db72-5fcf-4d5c-a6a7-90400e441fea@x.siki.ai",
+   "display_name": "Ghibli [PonyXL]",
+   "type": "image",
+   "can_generate_text": false,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": null,
+   "nsfw": false,
+   "interactions": 6606,
+   "subtitle": "Trained on 800 screencaps of 16 different Studio Ghibli movies.",
    "verified": false
   },
   {
@@ -4176,23 +4176,8 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 4709,
+   "interactions": 4711,
    "subtitle": "Dark themes and shadowy cinematography stills",
-   "verified": false
-  },
-  {
-   "id": "0_3953e022-dc19-4fd9-b20c-3a82ba43c6dc",
-   "bare_jid": "0_3953e022-dc19-4fd9-b20c-3a82ba43c6dc@x.siki.ai",
-   "publictoken": "pt_ffe32caf-33c0-4a3c-924c-e94ad7375cd7@x.siki.ai",
-   "display_name": "Dandonfuga Style",
-   "type": "image",
-   "can_generate_text": false,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": null,
-   "nsfw": false,
-   "interactions": 4647,
-   "subtitle": "Dandonfuga Style",
    "verified": false
   }
  ]

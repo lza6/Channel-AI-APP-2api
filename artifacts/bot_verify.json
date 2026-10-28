@@ -246,5 +246,19 @@
    "serverTimestamp": "2026-10-28T23:13:17.104Z",
    "nextEnergyRecharge": "2026-10-29T01:13:17.104Z"
   }
- }
+ },
+ "image_verified": [
+  {
+   "id": "0_0f487ca2-69fd-47af-b54c-007dee93a723",
+   "note": "13.2s 出 1 张 / energy 5→4"
+  },
+  {
+   "id": "0_febd3c8d-a862-4d0b-ab5e-7438c26f7aea",
+   "note": "一次 prompt 出 3 张无水印 132KB"
+  },
+  {
+   "id": "0_77932319-ce40-40fd-8b69-de2561b659da",
+   "note": "一次 prompt 出 3 张，74KB/132KB 直链"
+  }
+ ]
 }

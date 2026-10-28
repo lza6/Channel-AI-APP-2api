@@ -13,12 +13,18 @@ from channel_client import Catalog
 
 
 def load_verify() -> dict:
+    """对话抽查 + 绘图抽查合并成 {id: row}。"""
     path = os.path.join("artifacts", "bot_verify.json")
     if not os.path.exists(path):
         return {}
     with open(path, encoding="utf-8") as fp:
         data = json.load(fp)
-    return {row["id"]: row for row in data.get("text", []) if row.get("id")}
+    merged = {row["id"]: row for row in data.get("text", []) if row.get("id")}
+    for entry in data.get("image_verified", []) + ([data["image"]] if data.get("image") else []):
+        if entry.get("id"):
+            merged.setdefault(entry["id"], {"ok": True, "elapsed_s": entry.get("elapsed_s"),
+                                            "note": entry.get("note")})
+    return merged
 
 
 def row(bot: dict, verified: dict) -> str:
