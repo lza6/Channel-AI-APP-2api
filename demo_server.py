@@ -471,11 +471,17 @@ def main() -> None:
                        country=args.country, verbose=bool(os.environ.get("CHANNEL_VERBOSE")))
     global FACTORY
     FACTORY = POOL.factory
-    print(f"prewarming {args.min_idle} session(s) …")
-    print("pool:", POOL.prewarm())
     server = ThreadingHTTPServer((args.host, args.port), Handler)
     server.daemon_threads = True
-    print(f"channel-demo {VERSION} on http://127.0.0.1:{args.port}  (max={args.pool}, min_idle={args.min_idle}, store={args.store})")
+    print(f"channel-demo {VERSION} on http://127.0.0.1:{args.port}  "
+          f"(max={args.pool}, min_idle={args.min_idle}, store={args.store})", flush=True)
+
+    def warm() -> None:
+        # prewarm in the background so the HTTP port is usable immediately
+        started = time.time()
+        print("prewarming:", POOL.prewarm(), f"in {time.time()-started:.1f}s", flush=True)
+
+    threading.Thread(target=warm, name="prewarm", daemon=True).start()
     try:
         server.serve_forever()
     except KeyboardInterrupt:
