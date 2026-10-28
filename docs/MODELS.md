@@ -1,9 +1,9 @@
 # 模型清单（上游目录快照）
 
-> 生成时间：2026-10-29T07:24:17　数据源：`/v2/category/newexplore`（匿名接口，无需账号）
+> 生成时间：2026-10-29T07:25:07　数据源：`/v2/category/newexplore`（匿名接口，无需账号）
 > 机器可读版：[`models.json`](../models.json)　验证明细：[`artifacts/bot_verify.json`](../artifacts/bot_verify.json)
 
-**共 277 个模型**：对话（character）260 个 · 绘图（image）17 个 · 分类 17 个
+**共 278 个模型**：对话（character）260 个 · 绘图（image）18 个 · 分类 17 个
 
 > 说明：上游目录是**动态**的（不同时间拉到的数量会变，实测曾见 187 / 233 / 233），以 `python -X utf8 build_models.py` 现场生成的结果为准。
 
@@ -27,9 +27,9 @@
 |---|---|---|---|---|---|
 | `0_b2cf4ea3-b728-4112-be3d-9829d950bcea` | Stranger | 788964 | text/image | ✅ 已验证 | 5.54s |
 | `0_f02210a6-c50c-4ea5-bd92-69296f92f6e0` | Ella | 677337 | text/image | ✅ 已验证 | 13.43s |
-| `0_f28ecd20-c129-47b7-8d7e-7fd8a1970bd3` | Tinder Simulator | 452467 | text/image | ✅ 已验证 | 12.79s |
+| `0_f28ecd20-c129-47b7-8d7e-7fd8a1970bd3` | Tinder Simulator | 452473 | text/image | ✅ 已验证 | 12.79s |
 | `0_2f34cb6e-e925-4cc9-a07b-f1b660260b25` | Lyla | 396569 | text/image | ⏳ 未抽查 | — |
-| `0_a7591ee3-51a0-48b0-8493-9386556be503` | Leena | 387433 | text/image | ✅ 已验证 | 5.78s |
+| `0_a7591ee3-51a0-48b0-8493-9386556be503` | Leena | 387434 | text/image | ✅ 已验证 | 5.78s |
 | `0_e1325059-79b6-4269-93f5-5fc6b01cc26b` | Hailey | 326025 | text/image | ✅ 已验证 | 14.98s |
 | `0_e23903e8-89af-46b9-8130-986272d7e9d5` | Agnes | 311649 | text/image | ✅ 已验证 | 12.34s |
 | `0_ffeeaf65-583b-4bb0-8026-6e892d66da4f` | Amanda | 297304 | text/image | ⏳ 未抽查 | — |
@@ -52,7 +52,7 @@
 | `0_f249788a-e4be-4680-b263-c1d43d9f834e` | Alice | 109893 | text/image | ⏳ 未抽查 | — |
 | `0_74452dd7-5083-41cb-89df-3bf63d80c70d` | Emily | 101109 | text/image | ⏳ 未抽查 | — |
 | `0_9c1d7fc6-286c-414c-afe3-9ea54ef322b6` | Lizzie | 96088 | text/image | ⏳ 未抽查 | — |
-| `0_d16b3537-f081-4531-afed-a7bcec57f8e6` | Emily and Sarah | 95761 | text/image | ✅ 已验证 | 11.69s |
+| `0_d16b3537-f081-4531-afed-a7bcec57f8e6` | Emily and Sarah | 95762 | text/image | ✅ 已验证 | 11.69s |
 | `0_653df635-6cfa-421d-ab13-80903853d106` | Karen | 93732 | text/image | ⏳ 未抽查 | — |
 | `0_0354920b-7528-47a5-a369-3a49e5a1f6d8` | Emma | 89784 | text/image | ⏳ 未抽查 | — |
 | `0_d6eaef74-5d49-464a-8d5d-a8656548f76e` | Mei | 87281 | text/image | ⏳ 未抽查 | — |
@@ -62,30 +62,31 @@
 | `0_07095e84-cdd0-4233-9f6e-4fd1ef98d2d2` | JJ | 77644 | text/image | ⏳ 未抽查 | — |
 | `0_2f4faed7-6245-4ad3-b84a-9b275b42adb4` | Emily Wilson | 75587 | text/image | ⏳ 未抽查 | — |
 | `0_dc5983b0-3480-4904-adcd-08761c53d6ac` | Maria | 71939 | text/image | ⏳ 未抽查 | — |
-| `0_50002887-0fd2-4d6f-8eea-60172dd7ca78` | Zoe | 71091 | text/image | ⏳ 未抽查 | — |
+| `0_50002887-0fd2-4d6f-8eea-60172dd7ca78` | Zoe | 71092 | text/image | ⏳ 未抽查 | — |
 | `0_805f95a6-edbd-4b71-8a83-336fb661df2f` | Ariana, Your Friend's Wife | 70671 | text/image | ⏳ 未抽查 | — |
 | `0_899bb17d-e13a-44f2-b967-2d44da223cca` | Lydia | 70487 | text/image | ⏳ 未抽查 | — |
 
-## 绘图模型（全部 17 个）
+## 绘图模型（全部 18 个）
 
 | 模型名（new-api 用这个） | 显示名 | 互动数 | 能力 | 抽查 | 时延 |
 |---|---|---|---|---|---|
-| `0_febd3c8d-a862-4d0b-ab5e-7438c26f7aea` | Real Amateur Photos | 5886827 | image | ✅ 已验证 | Nones |
-| `0_d9146221-91c1-440c-9334-d71a999c5350` | Z-image | 911994 | image | ⏳ 未抽查 | — |
-| `0_219d7746-9534-417a-ac41-8b0cb65c1064` | Z-image Amateur | 769924 | image | ⏳ 未抽查 | — |
+| `0_febd3c8d-a862-4d0b-ab5e-7438c26f7aea` | Real Amateur Photos | 5886837 | image | ✅ 已验证 | — |
+| `0_64053893-59be-402b-a795-f6b8303ab403` | CyberIllustrious XL | 1282541 | image | ⏳ 未抽查 | — |
+| `0_d9146221-91c1-440c-9334-d71a999c5350` | Z-image | 911995 | image | ⏳ 未抽查 | — |
+| `0_05d35190-fb62-450d-8665-26f5092d5c6e` | Cyberrealistic Pony | 808019 | image | ⏳ 未抽查 | — |
+| `0_219d7746-9534-417a-ac41-8b0cb65c1064` | Z-image Amateur | 769925 | image | ⏳ 未抽查 | — |
 | `0_8277055a-7828-4bf2-bc94-381d62bb9282` | Character 4 - Realistic Inst | 211096 | image | ⏳ 未抽查 | — |
 | `0_9fd53533-a2b4-44b5-b07a-15f0c212709b` | Realistic Skin & Face - Beau | 131524 | image | ⏳ 未抽查 | — |
 | `0_8305d2cc-a21a-4632-b251-9ea0a174c0e8` | Tan Girls | 131488 | image | ⏳ 未抽查 | — |
-| `0_5a1fed35-3279-4d4d-93c1-bc6a7cf48b92` | Anime in real | 121267 | image | ⏳ 未抽查 | — |
-| `0_27c09e0f-9bd2-4e9d-ba81-f87189994b06` | Illustrious Monochrome Manga | 86242 | image | ⏳ 未抽查 | — |
-| `0_2d6df959-8927-41dd-9567-757c42eb0d9c` | Thrillustrious XL | 56194 | image | ⏳ 未抽查 | — |
-| `0_bc98630a-dff4-4a1a-a152-098b4fe41bf0` | Asura Style [IL] | 54230 | image | ⏳ 未抽查 | — |
-| `0_22cb0472-50ee-4dec-b456-4dcf7332f019` | Retro Cartoon / Toon - Style | 48106 | image | ⏳ 未抽查 | — |
+| `0_4d4326c8-4ba0-4b09-aa54-298f1208e2f7` | Fugtrup - ArtStyle | 83381 | image | ⏳ 未抽查 | — |
+| `0_2d6df959-8927-41dd-9567-757c42eb0d9c` | Thrillustrious XL | 56195 | image | ⏳ 未抽查 | — |
+| `0_bc98630a-dff4-4a1a-a152-098b4fe41bf0` | Asura Style [IL] | 54231 | image | ⏳ 未抽查 | — |
+| `0_22cb0472-50ee-4dec-b456-4dcf7332f019` | Retro Cartoon / Toon - Style | 48107 | image | ⏳ 未抽查 | — |
 | `0_f9e873e7-5825-4a65-bb3d-d5c9dc4d0d97` | Channel Rouge 1.0 | 35528 | image | ⏳ 未抽查 | — |
-| `0_0f487ca2-69fd-47af-b54c-007dee93a723` | Channel Snap 1.0 | 31879 | image | ✅ 已验证 | Nones |
-| `0_1cafcaf3-f32b-4d50-90c3-954b89a30c55` | MGE Monster Girls | 30614 | image | ⏳ 未抽查 | — |
+| `0_0f487ca2-69fd-47af-b54c-007dee93a723` | Channel Snap 1.0 | 31880 | image | ✅ 已验证 | — |
+| `0_1cafcaf3-f32b-4d50-90c3-954b89a30c55` | MGE Monster Girls | 30618 | image | ⏳ 未抽查 | — |
 | `0_4ac1fa22-3a51-4f41-a4b1-353324c697b6` | SameFace Fix [Flux Lora] | 19544 | image | ⏳ 未抽查 | — |
-| `0_2b3599ac-c5d1-4367-987e-c4c8b62e6cde` | Ghibli [PonyXL] | 6606 | image | ⏳ 未抽查 | — |
+| `0_ffb6bbda-fc60-4544-a1fa-eda52ac2ecc4` | Cinematic Shot✨ (Landscape v | 7794 | image | ⏳ 未抽查 | — |
 | `0_2d61b38e-26e2-41bc-a453-c2640116285b` | Classic + (Neo) Film Noir Ci | 4711 | image | ⏳ 未抽查 | — |
 
 ## 全部模型名（直接粘进 new-api 渠道「模型」框）
@@ -195,7 +196,6 @@
 0_49eef3e9-647f-46cf-9e57-6ec2889f584e
 0_9702629b-a061-4e8f-8cd5-7bdf038d713a
 0_5c036922-2f21-4283-a499-07880b4cbcc3
-0_b5452bef-03b9-4953-adc2-33b76988f4d8
 0_50bbeb5c-dea3-4fd7-b1ab-5693a79ece77
 0_e5590062-311e-45e1-84f3-f8a35809a93b
 0_a0f562eb-fb86-4c04-92cf-41d165cee4fc
@@ -240,6 +240,7 @@
 0_5505a73f-250d-4047-aeef-dad64821645c
 0_5e6ce899-159d-4597-9c51-446c84d8e2bf
 0_79c14e53-ead7-4210-838f-7a644dd34d43
+0_8c2d3164-df9d-406d-a377-1b13d08591b2
 0_5821438a-dfa6-481b-8926-49fad6e6d67a
 0_a196344e-5235-44bf-a9bf-71424b9b1197
 0_365f8871-90e0-44fa-9198-38750d7bdfd5
@@ -271,7 +272,6 @@
 0_06308839-e722-4611-9d8b-8ad8c195ee99
 0_e9f85d5f-75a7-40e6-9a7f-6c4002062e8b
 0_7ac1c15a-454d-4575-b96d-e80e7d6c162c
-0_8082d399-db88-425a-a0fb-5468485afab2
 0_4e9e81b1-a04f-4c2b-89c3-1489c71ac4b9
 0_96476c09-1e5a-41da-90c1-cb2275e7820d
 0_789e35ad-c3b2-427f-98a8-b998a897d319
@@ -304,7 +304,6 @@
 0_e573b436-bef0-4649-a6e7-9cc9c6a5a7dd
 0_69721963-832a-4e37-9c77-adee19b4604a
 0_8e8737d0-f019-4dfd-b9f2-6cf686633326
-0_25729f9a-bddc-4321-b8ea-1dc15d0de6f0
 0_89354e14-6e8f-4e18-955c-12e3168e049d
 0_d40fc134-d45e-48b0-9e61-7b6698191605
 0_e636be8e-ad25-41d9-bb15-e9c54ebf3228
@@ -335,6 +334,7 @@
 0_822a01a1-8e97-42fc-be90-f3a8ae67c75a
 0_f3e9a46d-3585-4f43-9233-8ece36bc1f91
 0_73250c4b-aab7-472d-a91f-6658285c853d
+0_389877d9-b2c7-4c43-b1a8-8a09c55a6308
 0_0a730d3e-fbee-4932-95a3-1e32d9a25e66
 0_2b0fbffe-05e9-4501-a337-57212df31e85
 0_86b38017-fb84-431a-9e3d-91f964f5c7fe
@@ -350,15 +350,17 @@
 0_82d60527-5006-4426-9d6a-aa90afb2bed2
 0_5f943adf-9475-4999-8f64-362dcf2644fd
 0_7003984d-7c00-4135-b7f2-580d94c8923c
+0_d306d72c-f358-495d-90d3-64d6b24f736d
 0_7cbdc5e0-f1aa-4103-aea0-8ab5c8e3d4a9
 0_febd3c8d-a862-4d0b-ab5e-7438c26f7aea
+0_64053893-59be-402b-a795-f6b8303ab403
 0_d9146221-91c1-440c-9334-d71a999c5350
+0_05d35190-fb62-450d-8665-26f5092d5c6e
 0_219d7746-9534-417a-ac41-8b0cb65c1064
 0_8277055a-7828-4bf2-bc94-381d62bb9282
 0_9fd53533-a2b4-44b5-b07a-15f0c212709b
 0_8305d2cc-a21a-4632-b251-9ea0a174c0e8
-0_5a1fed35-3279-4d4d-93c1-bc6a7cf48b92
-0_27c09e0f-9bd2-4e9d-ba81-f87189994b06
+0_4d4326c8-4ba0-4b09-aa54-298f1208e2f7
 0_2d6df959-8927-41dd-9567-757c42eb0d9c
 0_bc98630a-dff4-4a1a-a152-098b4fe41bf0
 0_22cb0472-50ee-4dec-b456-4dcf7332f019
@@ -366,7 +368,7 @@
 0_0f487ca2-69fd-47af-b54c-007dee93a723
 0_1cafcaf3-f32b-4d50-90c3-954b89a30c55
 0_4ac1fa22-3a51-4f41-a4b1-353324c697b6
-0_2b3599ac-c5d1-4367-987e-c4c8b62e6cde
+0_ffb6bbda-fc60-4544-a1fa-eda52ac2ecc4
 0_2d61b38e-26e2-41bc-a453-c2640116285b
 ```
 

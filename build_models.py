@@ -39,7 +39,8 @@ def row(bot: dict, verified: dict) -> str:
         tags.append("faceswap")
     check = verified.get(bot["username"])
     status = "✅ 已验证" if check and check.get("ok") else ("⏳ 未抽查" if not check else "❌ 失败")
-    latency = f"{check['elapsed_s']}s" if check and check.get("ok") else "—"
+    latency = (f"{check['elapsed_s']}s"
+               if check and check.get("ok") and check.get("elapsed_s") else "—")
     return (f"| `{bot['username']}` | {str(bot.get('display_name'))[:28]} | "
             f"{bot.get('interaction_count') or bot.get('interactions') or 0} | {'/'.join(tags) or '—'} | {status} | {latency} |")
 

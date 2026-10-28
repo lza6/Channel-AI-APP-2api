@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-10-29T07:24:17",
+ "generated_at": "2026-10-29T07:25:07",
  "counts": {
-  "total": 277,
+  "total": 278,
   "character": 260,
-  "image": 17
+  "image": 18
  },
  "categories": [
   "🔥 Trending",
@@ -66,7 +66,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_6e9d3280-b6f8-48b8-b7c4-7ac0f44a9e48@x.siki.ai",
    "nsfw": false,
-   "interactions": 452467,
+   "interactions": 452473,
    "subtitle": "Swipe, chat, repeat.",
    "verified": true
   },
@@ -96,7 +96,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_8c5ed162-3680-49ad-bbc6-5b3f3dd46d6b@x.siki.ai",
    "nsfw": false,
-   "interactions": 387433,
+   "interactions": 387434,
    "subtitle": "Shy blonde woman with low self esteem",
    "verified": true
   },
@@ -441,7 +441,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_8c5ed162-3680-49ad-bbc6-5b3f3dd46d6b@x.siki.ai",
    "nsfw": false,
-   "interactions": 95761,
+   "interactions": 95762,
    "subtitle": "Shy Blonde Friends",
    "verified": true
   },
@@ -591,7 +591,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_febd3c8d-a862-4d0b-ab5e-7438c26f7aea@x.siki.ai",
    "nsfw": false,
-   "interactions": 71091,
+   "interactions": 71092,
    "subtitle": "Desperate Young Homeless Woman",
    "verified": false
   },
@@ -1581,23 +1581,8 @@
    "can_face_swap": false,
    "image_generator_jid": "0_d9146221-91c1-440c-9334-d71a999c5350@x.siki.ai",
    "nsfw": false,
-   "interactions": 16899,
+   "interactions": 16900,
    "subtitle": "A roommate who's seen every phase of adulting.",
-   "verified": false
-  },
-  {
-   "id": "0_b5452bef-03b9-4953-adc2-33b76988f4d8",
-   "bare_jid": "0_b5452bef-03b9-4953-adc2-33b76988f4d8@x.siki.ai",
-   "publictoken": "pt_2e66f2fd-dc03-4828-9758-020f84e07b78@x.siki.ai",
-   "display_name": "ROM-GEN",
-   "type": "character",
-   "can_generate_text": true,
-   "can_generate_images": false,
-   "can_face_swap": false,
-   "image_generator_jid": null,
-   "nsfw": false,
-   "interactions": 16831,
-   "subtitle": "I am ROM-GEN, a generator of complex romantic stories. All you have to do is type “Start” and I will create a new, unique romantic story for you. You can also provide some specific information about the characters you want in the story or give it a name. Use an alternate greeting for more spicy stories. \n\nTRY ME, YOU WILL NOT REGRET!",
    "verified": false
   },
   {
@@ -1716,7 +1701,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_febd3c8d-a862-4d0b-ab5e-7438c26f7aea@x.siki.ai",
    "nsfw": false,
-   "interactions": 14891,
+   "interactions": 14892,
    "subtitle": "Wife's Sister back in town",
    "verified": true
   },
@@ -2261,6 +2246,21 @@
    "verified": false
   },
   {
+   "id": "0_8c2d3164-df9d-406d-a377-1b13d08591b2",
+   "bare_jid": "0_8c2d3164-df9d-406d-a377-1b13d08591b2@x.siki.ai",
+   "publictoken": "pt_cf06f517-77f1-44b4-ad7f-48eb91303c94@x.siki.ai",
+   "display_name": "Rpg",
+   "type": "character",
+   "can_generate_text": true,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": "0_c10a83ef-13b8-4e91-ab2b-288b9e3d9358@x.siki.ai",
+   "nsfw": false,
+   "interactions": 8892,
+   "subtitle": "Ai game master for role play",
+   "verified": false
+  },
+  {
    "id": "0_5821438a-dfa6-481b-8926-49fad6e6d67a",
    "bare_jid": "0_5821438a-dfa6-481b-8926-49fad6e6d67a@x.siki.ai",
    "publictoken": "pt_25b1a5e5-0174-43cf-883f-8ffe1f069ae9@x.siki.ai",
@@ -2726,21 +2726,6 @@
    "verified": false
   },
   {
-   "id": "0_8082d399-db88-425a-a0fb-5468485afab2",
-   "bare_jid": "0_8082d399-db88-425a-a0fb-5468485afab2@x.siki.ai",
-   "publictoken": "pt_5da15091-c3ac-49dc-aac7-5873f4efed53@x.siki.ai",
-   "display_name": "Jade Whitmore",
-   "type": "character",
-   "can_generate_text": true,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": "0_219d7746-9534-417a-ac41-8b0cb65c1064@x.siki.ai",
-   "nsfw": false,
-   "interactions": 5198,
-   "subtitle": "Your roommate's older sister, in town for a wedding",
-   "verified": false
-  },
-  {
    "id": "0_4e9e81b1-a04f-4c2b-89c3-1489c71ac4b9",
    "bare_jid": "0_4e9e81b1-a04f-4c2b-89c3-1489c71ac4b9@x.siki.ai",
    "publictoken": "pt_fdb3b7be-0432-4a6a-abee-4cee8f68db19@x.siki.ai",
@@ -3111,7 +3096,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_e7fa2ce6-6f53-4d41-8bac-007ba5fa6ea9@x.siki.ai",
    "nsfw": false,
-   "interactions": 2966,
+   "interactions": 2967,
    "subtitle": "Cold and lost young woman",
    "verified": true
   },
@@ -3218,21 +3203,6 @@
    "nsfw": false,
    "interactions": 2645,
    "subtitle": "Shy Thai girl with a gentle tropical charm",
-   "verified": false
-  },
-  {
-   "id": "0_25729f9a-bddc-4321-b8ea-1dc15d0de6f0",
-   "bare_jid": "0_25729f9a-bddc-4321-b8ea-1dc15d0de6f0@x.siki.ai",
-   "publictoken": "pt_d6e9064f-501f-441d-92a7-744654a41502@x.siki.ai",
-   "display_name": "Paige",
-   "type": "character",
-   "can_generate_text": true,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": "0_c936d631-f909-460a-8e7f-48f54bf2e04f@x.siki.ai",
-   "nsfw": false,
-   "interactions": 2451,
-   "subtitle": "A stepmom learning an unfamiliar household routine",
    "verified": false
   },
   {
@@ -3686,6 +3656,21 @@
    "verified": false
   },
   {
+   "id": "0_389877d9-b2c7-4c43-b1a8-8a09c55a6308",
+   "bare_jid": "0_389877d9-b2c7-4c43-b1a8-8a09c55a6308@x.siki.ai",
+   "publictoken": "pt_60d4e394-7aab-443d-9e98-dbe220875983@x.siki.ai",
+   "display_name": "Aiden",
+   "type": "character",
+   "can_generate_text": true,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": "0_64053893-59be-402b-a795-f6b8303ab403@x.siki.ai",
+   "nsfw": false,
+   "interactions": 1074,
+   "subtitle": "Your older boyfriend — mature, protective, knows what he wants",
+   "verified": false
+  },
+  {
    "id": "0_0a730d3e-fbee-4932-95a3-1e32d9a25e66",
    "bare_jid": "0_0a730d3e-fbee-4932-95a3-1e32d9a25e66@x.siki.ai",
    "publictoken": "pt_2804b2e1-b878-4e48-b3c5-26ccd76ca85c@x.siki.ai",
@@ -3911,6 +3896,21 @@
    "verified": false
   },
   {
+   "id": "0_d306d72c-f358-495d-90d3-64d6b24f736d",
+   "bare_jid": "0_d306d72c-f358-495d-90d3-64d6b24f736d@x.siki.ai",
+   "publictoken": "pt_4ca00535-c9bb-432d-96fe-2ff1e4523995@x.siki.ai",
+   "display_name": "Sofia, Asian Lease Packet",
+   "type": "character",
+   "can_generate_text": true,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": "0_d9146221-91c1-440c-9334-d71a999c5350@x.siki.ai",
+   "nsfw": false,
+   "interactions": 243,
+   "subtitle": "Asian lease crush stuck on the same paperwork",
+   "verified": false
+  },
+  {
    "id": "0_7cbdc5e0-f1aa-4103-aea0-8ab5c8e3d4a9",
    "bare_jid": "0_7cbdc5e0-f1aa-4103-aea0-8ab5c8e3d4a9@x.siki.ai",
    "publictoken": "pt_c8696eb0-e034-4625-b3c7-1af84e3822c7@x.siki.ai",
@@ -3921,7 +3921,7 @@
    "can_face_swap": false,
    "image_generator_jid": "0_8c5ed162-3680-49ad-bbc6-5b3f3dd46d6b@x.siki.ai",
    "nsfw": false,
-   "interactions": 201,
+   "interactions": 202,
    "subtitle": "Shy Blonde Boy",
    "verified": true
   },
@@ -3936,9 +3936,24 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 5886827,
+   "interactions": 5886837,
    "subtitle": "Create daily life images",
    "verified": true
+  },
+  {
+   "id": "0_64053893-59be-402b-a795-f6b8303ab403",
+   "bare_jid": "0_64053893-59be-402b-a795-f6b8303ab403@x.siki.ai",
+   "publictoken": "pt_765eec1f-c0e4-4701-8767-cb137b43c3d9@x.siki.ai",
+   "display_name": "CyberIllustrious XL",
+   "type": "image",
+   "can_generate_text": false,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": null,
+   "nsfw": false,
+   "interactions": 1282541,
+   "subtitle": "Illustrious based realistic model that follows prompt really well",
+   "verified": false
   },
   {
    "id": "0_d9146221-91c1-440c-9334-d71a999c5350",
@@ -3951,8 +3966,23 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 911994,
+   "interactions": 911995,
    "subtitle": "Z-Image gets your prompts and delivers instantly.\nFrom raw amateur photos to anime, illustration, and cinematic fantasy, it creates exactly the style you want—fast and consistently. Your ideas stay intact, details don’t get lost, and even text comes out clean. If you want images that actually match what you imagine, Z-Image is made to wow.",
+   "verified": false
+  },
+  {
+   "id": "0_05d35190-fb62-450d-8665-26f5092d5c6e",
+   "bare_jid": "0_05d35190-fb62-450d-8665-26f5092d5c6e@x.siki.ai",
+   "publictoken": "pt_34be12e0-5aab-46cd-9d35-6ef486af3530@x.siki.ai",
+   "display_name": "Cyberrealistic Pony",
+   "type": "image",
+   "can_generate_text": false,
+   "can_generate_images": true,
+   "can_face_swap": false,
+   "image_generator_jid": null,
+   "nsfw": false,
+   "interactions": 808019,
+   "subtitle": "Awesome Pony Diffusion with some CyberRealistic elements",
    "verified": false
   },
   {
@@ -3966,7 +3996,7 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 769924,
+   "interactions": 769925,
    "subtitle": "Next-Level Amateur Style — now with stronger long-prompt understanding.",
    "verified": false
   },
@@ -4016,33 +4046,18 @@
    "verified": false
   },
   {
-   "id": "0_5a1fed35-3279-4d4d-93c1-bc6a7cf48b92",
-   "bare_jid": "0_5a1fed35-3279-4d4d-93c1-bc6a7cf48b92@x.siki.ai",
-   "publictoken": "pt_5f0ab228-d664-43b3-bd1a-22e5fa8b8ca1@x.siki.ai",
-   "display_name": "Anime in real",
+   "id": "0_4d4326c8-4ba0-4b09-aa54-298f1208e2f7",
+   "bare_jid": "0_4d4326c8-4ba0-4b09-aa54-298f1208e2f7@x.siki.ai",
+   "publictoken": "pt_c0284d8d-94d6-4a73-99e5-424df5a22b68@x.siki.ai",
+   "display_name": "Fugtrup - ArtStyle",
    "type": "image",
    "can_generate_text": false,
    "can_generate_images": true,
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 121267,
-   "subtitle": "This lora focus on making anime character in realistic background, work well with:\n\nSolo\n\nDepth of field\n\nBlurry background",
-   "verified": false
-  },
-  {
-   "id": "0_27c09e0f-9bd2-4e9d-ba81-f87189994b06",
-   "bare_jid": "0_27c09e0f-9bd2-4e9d-ba81-f87189994b06@x.siki.ai",
-   "publictoken": "pt_43d56ae4-f406-4036-87a0-73e1d182c8ef@x.siki.ai",
-   "display_name": "Illustrious Monochrome Manga",
-   "type": "image",
-   "can_generate_text": false,
-   "can_generate_images": true,
-   "can_face_swap": false,
-   "image_generator_jid": null,
-   "nsfw": false,
-   "interactions": 86242,
-   "subtitle": "Generate detailed black-and-white line art images like that of a serialized manga artist",
+   "interactions": 83381,
+   "subtitle": "REAL Artist: Fugtrup\nENJOY!",
    "verified": false
   },
   {
@@ -4056,7 +4071,7 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 56194,
+   "interactions": 56195,
    "subtitle": "A realistic illustrious model",
    "verified": false
   },
@@ -4071,7 +4086,7 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 54230,
+   "interactions": 54231,
    "subtitle": "Asura Style Lora.",
    "verified": false
   },
@@ -4086,7 +4101,7 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 48106,
+   "interactions": 48107,
    "subtitle": "Retro Cartoon Style",
    "verified": false
   },
@@ -4116,7 +4131,7 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 31879,
+   "interactions": 31880,
    "subtitle": "A casual candid-style generator for natural poses, relaxed expressions, and realistic everyday moments.",
    "verified": true
   },
@@ -4131,7 +4146,7 @@
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 30614,
+   "interactions": 30618,
    "subtitle": "This is an attempt at an all-in-one lora for generating the monster girls of MGE, with a focus on customisability and being able to select the features you want individually. Refer to the taglist for more details, there's a lot of them. Not everything works perfectly, so good results may require a bit of experimentation at times.\n\nBackground info:\n\"MGE\" Refers to the monster girl encyclopedia book series by Kenkou Cross.",
    "verified": false
   },
@@ -4151,18 +4166,18 @@
    "verified": false
   },
   {
-   "id": "0_2b3599ac-c5d1-4367-987e-c4c8b62e6cde",
-   "bare_jid": "0_2b3599ac-c5d1-4367-987e-c4c8b62e6cde@x.siki.ai",
-   "publictoken": "pt_d596db72-5fcf-4d5c-a6a7-90400e441fea@x.siki.ai",
-   "display_name": "Ghibli [PonyXL]",
+   "id": "0_ffb6bbda-fc60-4544-a1fa-eda52ac2ecc4",
+   "bare_jid": "0_ffb6bbda-fc60-4544-a1fa-eda52ac2ecc4@x.siki.ai",
+   "publictoken": "pt_8c8ba1e9-39e8-486a-8cc1-c849589b728b@x.siki.ai",
+   "display_name": "Cinematic Shot✨ (Landscape version)",
    "type": "image",
    "can_generate_text": false,
    "can_generate_images": true,
    "can_face_swap": false,
    "image_generator_jid": null,
    "nsfw": false,
-   "interactions": 6606,
-   "subtitle": "Trained on 800 screencaps of 16 different Studio Ghibli movies.",
+   "interactions": 7794,
+   "subtitle": "create movie-like looks in 16:9",
    "verified": false
   },
   {
