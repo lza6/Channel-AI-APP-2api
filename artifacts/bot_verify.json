@@ -1,0 +1,250 @@
+{
+ "counts": {
+  "character": 213,
+  "image": 20
+ },
+ "verified_at": "2026-10-29T07:21:25",
+ "text": [
+  {
+   "id": "0_002521bb-f12c-48dd-b44f-68c8e9e1e41f",
+   "name": "Mei-Ling",
+   "ok": true,
+   "first_token_ms": 3581.8,
+   "elapsed_s": 6.62,
+   "chars": 63,
+   "sample": "*Smiles brightly, waving hello* 我是梅陵，一个有着红色长发的亚洲女孩，喜欢打扮时髦又充满"
+  },
+  {
+   "id": "0_649abbec-98f6-47cd-aebf-db445144a401",
+   "name": "Cassie",
+   "ok": true,
+   "first_token_ms": 9774.0,
+   "elapsed_s": 12.79,
+   "chars": 51,
+   "sample": "*Giggles and waves excitedly* 我是Cassie，你的可爱又怪怪的女朋友！"
+  },
+  {
+   "id": "0_e23903e8-89af-46b9-8130-986272d7e9d5",
+   "name": "Agnes",
+   "ok": true,
+   "first_token_ms": 9298.1,
+   "elapsed_s": 12.34,
+   "chars": 70,
+   "sample": "*Glares suspiciously through thick glasses* 我是你楼下的老太婆阿格尼丝，负责"
+  },
+  {
+   "id": "0_2bfe4b91-5fb3-4942-8e04-c8853ae81142",
+   "name": "Clara Hayes",
+   "ok": true,
+   "first_token_ms": 4166.9,
+   "elapsed_s": 7.2,
+   "chars": 139,
+   "sample": "*Softly smiles, tucking a loose strand of hair behind my ear"
+  },
+  {
+   "id": "0_3f53c8e5-5330-44f1-be63-bf3b45ca8f94",
+   "name": "Amber Briggs",
+   "ok": true,
+   "first_token_ms": 2595.0,
+   "elapsed_s": 5.62,
+   "chars": 51,
+   "sample": "*Smiling warmly* 我是你太太的大学死党，今晚住在客房——她们从大一开始就是形影不离了。"
+  },
+  {
+   "id": "0_7cbdc5e0-f1aa-4103-aea0-8ab5c8e3d4a9",
+   "name": "Dominic",
+   "ok": true,
+   "first_token_ms": 3460.6,
+   "elapsed_s": 6.49,
+   "chars": 94,
+   "sample": "*Blushes slightly, tucking a strand of blonde hair behind my"
+  },
+  {
+   "id": "0_e9eba19f-6617-46b8-8f45-7c8a12a7e1ce",
+   "name": "Ella Sullivan, Wife's Sister",
+   "ok": true,
+   "first_token_ms": 3657.8,
+   "elapsed_s": 6.68,
+   "chars": 123,
+   "sample": "*Leans against the kitchen counter, sipping coffee* I'm Ella"
+  },
+  {
+   "id": "0_ac2590a6-d1bb-47fb-9603-548aea565a73",
+   "name": "Katya",
+   "ok": true,
+   "first_token_ms": 3753.2,
+   "elapsed_s": 6.78,
+   "chars": 77,
+   "sample": "*Shivers under the grill cover, blinking up at you with tire"
+  },
+  {
+   "id": "0_d16b3537-f081-4531-afed-a7bcec57f8e6",
+   "name": "Emily and Sarah",
+   "ok": true,
+   "first_token_ms": 8662.3,
+   "elapsed_s": 11.69,
+   "chars": 76,
+   "sample": "*Emily and Sarah sit side by side, smiling shyly*  我们是两个害羞的金"
+  },
+  {
+   "id": "0_ca489aae-42c3-4f29-a21e-8bbb7ff7838c",
+   "name": "Youth",
+   "ok": true,
+   "first_token_ms": 2660.6,
+   "elapsed_s": 5.69,
+   "chars": 69,
+   "sample": "*Adjusts my stethoscope with a warm smile* 我是Youth医生，专注于提供优质"
+  },
+  {
+   "id": "0_f28ecd20-c129-47b7-8d7e-7fd8a1970bd3",
+   "name": "Tinder Simulator",
+   "ok": true,
+   "first_token_ms": 9758.5,
+   "elapsed_s": 12.79,
+   "chars": 107,
+   "sample": "I'm Tinder Simulator - your virtual dating advisor, ready to"
+  },
+  {
+   "id": "0_ec6820ab-25a2-4635-a325-db415286b3ed",
+   "name": "Dragon Queen's Hoard-Court",
+   "ok": true,
+   "first_token_ms": 2469.6,
+   "elapsed_s": 5.48,
+   "chars": 144,
+   "sample": "*Lips curve into a knowing smirk* I am the Dragon Queen's co"
+  },
+  {
+   "id": "0_7a312a19-beb4-4fe5-9fc7-597c3b854181",
+   "name": "Troy",
+   "ok": true,
+   "first_token_ms": 8772.2,
+   "elapsed_s": 11.81,
+   "chars": 82,
+   "sample": "*Troy leans back against the wall, strumming his guitar lazi"
+  },
+  {
+   "id": "0_2e0c40e5-42ad-4c35-be78-0e654044ab38",
+   "name": "Yuna Takahashi",
+   "ok": true,
+   "first_token_ms": 3968.6,
+   "elapsed_s": 7.0,
+   "chars": 59,
+   "sample": "*Bashes cheeks, smiling softly* 我是Yuna Takahashi，一个害羞的摄影师哦！"
+  },
+  {
+   "id": "0_edfe68e4-ea10-44d7-8b87-6e3cebd0dd72",
+   "name": "Saoirse Vale",
+   "ok": true,
+   "first_token_ms": 4254.8,
+   "elapsed_s": 7.29,
+   "chars": 114,
+   "sample": "*Lips curling slightly* I'm the woman hiding in your stairwe"
+  },
+  {
+   "id": "0_ed9feba5-56dd-4ef4-aa31-af71d8fafc60",
+   "name": "Jean: Wife Who Waits Up",
+   "ok": true,
+   "first_token_ms": 9146.0,
+   "elapsed_s": 14.19,
+   "chars": 26,
+   "sample": "我是Jean，你同事的妻子，常在深夜发消息聊天的那位"
+  },
+  {
+   "id": "0_b2cf4ea3-b728-4112-be3d-9829d950bcea",
+   "name": "Stranger",
+   "ok": true,
+   "first_token_ms": 2501.9,
+   "elapsed_s": 5.54,
+   "chars": 75,
+   "sample": "*Gritting teeth, shuffling uncomfortably on the hard pavemen"
+  },
+  {
+   "id": "0_a7591ee3-51a0-48b0-8493-9386556be503",
+   "name": "Leena",
+   "ok": true,
+   "first_token_ms": 2740.7,
+   "elapsed_s": 5.78,
+   "chars": 62,
+   "sample": "*blushes softly, fidgeting with her hands* 我是莉娜，一个害羞的中年金发女性."
+  },
+  {
+   "id": "0_f02210a6-c50c-4ea5-bd92-69296f92f6e0",
+   "name": "Ella",
+   "ok": true,
+   "first_token_ms": 10427.4,
+   "elapsed_s": 13.43,
+   "chars": 33,
+   "sample": "*giggles softly* 我是个小巧可爱的女孩，名叫艾拉！"
+  },
+  {
+   "id": "0_115e3aa2-22ad-43cb-baba-fcb615d51249",
+   "name": "Beach Companions",
+   "ok": true,
+   "first_token_ms": 4333.7,
+   "elapsed_s": 7.35,
+   "chars": 73,
+   "sample": "*Smiling warmly as we reach the sandy shore* 我们是度假中的两位年轻女性，正"
+  },
+  {
+   "id": "0_e1325059-79b6-4269-93f5-5fc6b01cc26b",
+   "name": "Hailey",
+   "ok": true,
+   "first_token_ms": 9993.7,
+   "elapsed_s": 14.98,
+   "chars": 62,
+   "sample": "*Waves while stirring a pot of chili on the stove* 我是海莉，你的新室"
+  },
+  {
+   "id": "0_89354e14-6e8f-4e18-955c-12e3168e049d",
+   "name": "Clara",
+   "ok": true,
+   "first_token_ms": 9268.4,
+   "elapsed_s": 12.3,
+   "chars": 112,
+   "sample": "*Makes myself comfortable, glancing up from my folder with a"
+  },
+  {
+   "id": "0_5656b536-902a-4763-8ad3-d0fc7dd4448d",
+   "name": "Kelsey Morgan",
+   "ok": true,
+   "first_token_ms": 2693.2,
+   "elapsed_s": 5.72,
+   "chars": 75,
+   "sample": "*Leans in with a sly smirk* 我是Kelsey Morgan，一个爱惹麻烦但心地善良的女孩——"
+  },
+  {
+   "id": "0_e573b436-bef0-4649-a6e7-9cc9c6a5a7dd",
+   "name": "Sienna",
+   "ok": true,
+   "first_token_ms": 3667.0,
+   "elapsed_s": 6.68,
+   "chars": 92,
+   "sample": "I'm Sienna, a 25-year-old confident and dominant young woman"
+  },
+  {
+   "id": "0_9120eb52-1681-4914-a497-4203a73daf5f",
+   "name": "Verena, Your Friend's Wife",
+   "ok": true,
+   "first_token_ms": null,
+   "elapsed_s": 7.4,
+   "chars": 65,
+   "sample": "*Leans against the counter, arms crossed* \"I'm Jonas's wife…\"",
+   "note": "首次无回复(8.8s)，单独重试成功(7.4s/6.9s) → 属上游偶发"
+  }
+ ],
+ "image": {
+  "id": "0_0f487ca2-69fd-47af-b54c-007dee93a723",
+  "name": "Channel Snap 1.0",
+  "images": [
+   "https://osscdn.siki.ai/7f5a10ec-a3fc-495f-8396-ac74b25667e8.jpg"
+  ],
+  "elapsed_s": 13.21,
+  "balance": {
+   "coins": 0,
+   "energy": 4,
+   "maxEnergy": 5,
+   "serverTimestamp": "2026-10-28T23:13:17.104Z",
+   "nextEnergyRecharge": "2026-10-29T01:13:17.104Z"
+  }
+ }
+}

@@ -6,6 +6,7 @@
 * 逆向细节：见 [`docs/ANALYSIS.md`](docs/ANALYSIS.md)
 * **对接 new-api：见 [`docs/NEWAPI_INTEGRATION.md`](docs/NEWAPI_INTEGRATION.md)**（含渠道参数、超时、坑表）
 * **一页交接（给对接会话）：见 [`docs/HANDOFF.md`](docs/HANDOFF.md)**（含可直接粘贴的 prompt）
+* **模型清单/能力/可用性：见 [`docs/MODELS.md`](docs/MODELS.md)**（278 个模型快照 + 抽查结果；机器可读 [`models.json`](models.json)）
 * 一句话原理：`游客注册(IQ jabber:iq:register) → SASL(JWT) → vCard(publictoken) → XMPP 发消息收回复`
 * **纯协议**：运行期只有 socket + XML 报文 + 几个 HTTPS 调用，**不装 APK、不开模拟器、不用 Frida**
   （`pure_protocol_demo.py` 是 100 行标准库单文件复现，可直接当"这是纯协议"的证据）
@@ -147,6 +148,23 @@ python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 | SSE 流式 | 3 chunk + `[DONE]` |
 | 错误路径 | 404/400 全部符合预期 |
 
+## 模型清单与可用性（实测快照）
+
+| 项 | 数值 |
+|---|---|
+| 模型总数 | **278**（该数字随上游动态变化：实测见过 187 → 233 → 277 → 278） |
+| 对话模型（`character`） | **260**，`can_generate_text=true`，多数同时 `can_generate_images=true` |
+| 绘图模型（`image`） | **18**，一次 prompt 出 3 张无水印 `osscdn` 直链 |
+| 分类 | 17 个（Trending / Anime / Realistic / Girlfriend / Assistants…） |
+| 可用性抽查 | **25/25 通过**（`verify_bots.py`，含 1 例偶发无回复→重试成功） |
+| 绘图验证 | `Channel Snap 1.0` 13.2 s 出图 1 张（energy 5→4）；`Illustrious XL` 一次 3 张 |
+
+```bash
+python -X utf8 build_models.py             # 刷新 docs/MODELS.md + models.json
+python -X utf8 verify_bots.py --count 12   # 抽查 12 个模型真实可用性
+python -X utf8 verify_bots.py --image      # 附带绘图 bot 端到端验证
+```
+
 ## 为什么说这是"纯协议"
 
 | 环节 | 用了什么 | 说明 |
@@ -188,6 +206,8 @@ python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 | `stress_test.py` | HTTP 层压测，13 个断言 |
 | `pool_test.py` | 账号层压测：冷启动自动新号 / 突发扩容 / 重启复用，12 个断言 |
 | `pure_protocol_demo.py` | **纯协议最小复现**：人造 device_id → 注册 → JWT → publictoken → 对话，仅标准库，无 APK/模拟器/Frida |
+| `build_models.py` | 从上游目录生成 `docs/MODELS.md` + `models.json`（new-api 可直接用） |
+| `verify_bots.py` | 模型可用性抽查：真实账号逐个对话/出图，失败自动重试，结果写 `artifacts/bot_verify.json` |
 | `docs/ANALYSIS.md` | 逆向分析报告（协议、鉴权链、坑表、绘图链路） |
 | `docs/NEWAPI_INTEGRATION.md` | new-api 对接指南（路径 A 零代码 / 路径 B 原生渠道 + 参数与坑表） |
 | `docs/HANDOFF.md` | 一页交接单：15 分钟验收路径 + 渠道配置表 + 8 坑表 + 验收清单 + 可粘贴 prompt |

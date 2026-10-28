@@ -21,6 +21,7 @@ REST (Authorization: Bearer <jwt>, jid: <bare jid>, client: android)
 from __future__ import annotations
 
 import base64
+import contextlib
 import hashlib
 import html
 import json
@@ -60,7 +61,7 @@ DOH_RESOLVERS = (
 )
 
 
-def resolve_host(host: str = XMPP_HOST) -> str:
+def resolve_host(host: str = XMPP_HOST, port: int = XMPP_PORT) -> str:
     """Resolve `host`, falling back to DoH when the local resolver is hijacked.
 
     Local DNS on this box intermittently answers 127.0.0.1 for the upstream domains
@@ -70,7 +71,7 @@ def resolve_host(host: str = XMPP_HOST) -> str:
     if override:
         return override
     try:
-        infos = socket.getaddrinfo(host, XMPP_PORT, socket.AF_INET, socket.SOCK_STREAM)
+        infos = socket.getaddrinfo(host, port, socket.AF_INET, socket.SOCK_STREAM)
         addrs = [info[4][0] for info in infos]
         if addrs and not all(a.startswith(("127.", "0.")) for a in addrs):
             return addrs[0]
@@ -100,6 +101,38 @@ def build_resource(version: str = APP_VERSION, country: str = "US") -> str:
 
 class ChannelError(RuntimeError):
     pass
+
+
+_DNS_LOCK = threading.Lock()
+
+
+@contextlib.contextmanager
+def dns_override(host: str, port: int = 443):
+    """Point `host` at its DoH-resolved IP for the duration of the block.
+
+    The local resolver on this box intermittently answers 127.0.0.1 for the
+    upstream domains, which breaks urllib. Patching getaddrinfo for just that
+    host is the smallest hammer that keeps SNI/Host correct.
+    """
+    try:
+        ip = resolve_host(host, port)
+    except ChannelError:
+        yield
+        return
+    original = socket.getaddrinfo
+
+    def patched(name, p, family=0, type=0, proto=0, flags=0):  # noqa: A002
+        if name == host:
+            return [(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, "",
+                     (ip, p or port))]
+        return original(name, p, family, type, proto, flags)
+
+    with _DNS_LOCK:
+        socket.getaddrinfo = patched
+        try:
+            yield
+        finally:
+            socket.getaddrinfo = original
 
 
 @dataclass
@@ -506,6 +539,15 @@ def rest(path: str, jwt: str | None = None, jid: str | None = None,
             last_error = exc
             if attempt < retries:
                 time.sleep(0.6 + attempt)
+                # second chance with a DoH-pinned IP (local DNS hijack recovery)
+                host = urllib.parse.urlparse(base).hostname
+                if host:
+                    try:
+                        with dns_override(host):
+                            return _rest_once(path, jwt=jwt, jid=jid, base=base,
+                                              payload=payload, method=method, timeout=timeout)
+                    except Exception as inner:  # noqa: BLE001
+                        last_error = inner
     return 0, {"error": f"request failed: {type(last_error).__name__}: {last_error}"}
 
 
