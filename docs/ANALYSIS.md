@@ -230,6 +230,24 @@ proximity:muc:*             群组               proximity:channels*         频
 
 ---
 
+## 6.5 "纯协议"到什么程度
+
+一条命令就能证明（标准库单文件，不碰 APK）：
+
+```bash
+python -X utf8 pure_protocol_demo.py
+# [1] device_id=<uuid4>  username=tmp_us_<md5>
+# [2] 注册结果: 成功   [3] SASL 成功，JWT: eyJhbGci…
+# [4] publictoken: pt_xxx@x.siki.ai
+# [5] AI 回复（4.2s）: *Shifts uncomfortably…*
+```
+
+* `device_id` 是 `uuid4().hex` 这种**人造值**：上游既不校验 android_id 真实存在，也没有
+  Play Integrity / 签名 / 设备指纹校验（若将来加上，这条链路就要重做）。
+* 全程无 APK 安装、无模拟器、无 Frida；`rg -n "adb|frida|emulator|\.apk" *.py` 为空。
+* 依赖清单：`socket / ssl / hashlib / base64 / urllib / json / re / uuid / threading` —— 全标准库。
+* 号池同理：**每个"新号"= 一条注册 IQ + 一条 TLS 连接**，所以 `--hard-max 16` 就是 16 条连接。
+
 ## 7. 复现命令
 
 ```powershell

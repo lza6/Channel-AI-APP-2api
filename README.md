@@ -6,6 +6,8 @@
 * 逆向细节：见 [`docs/ANALYSIS.md`](docs/ANALYSIS.md)
 * **对接 new-api：见 [`docs/NEWAPI_INTEGRATION.md`](docs/NEWAPI_INTEGRATION.md)**（含渠道参数、超时、坑表）
 * 一句话原理：`游客注册(IQ jabber:iq:register) → SASL(JWT) → vCard(publictoken) → XMPP 发消息收回复`
+* **纯协议**：运行期只有 socket + XML 报文 + 几个 HTTPS 调用，**不装 APK、不开模拟器、不用 Frida**
+  （`pure_protocol_demo.py` 是 100 行标准库单文件复现，可直接当"这是纯协议"的证据）
 
 ```
 app 侧                       本仓库                         上游
@@ -144,6 +146,19 @@ python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 | SSE 流式 | 3 chunk + `[DONE]` |
 | 错误路径 | 404/400 全部符合预期 |
 
+## 为什么说这是"纯协议"
+
+| 环节 | 用了什么 | 说明 |
+|---|---|---|
+| 协议还原 | jadx 静态读代码 | 只在**前期**读过 APK，得到报文格式与常量 |
+| 建号 | 一条 `jabber:iq:register` IQ | `device_id` 是 `uuid4().hex` —— **人造值**，不是真机 android_id |
+| 鉴权 | SASL PLAIN | 用户名/密码都是 `md5()` 自算，服务端不做设备证明 |
+| 对话/绘图 | XMPP message stanza | 靠 UUID stanza id + publictoken 触发上游 AI |
+| 号池并发 | N 条 TLS 连接 | 池子 = 并发连接数，没有任何 App 实例参与 |
+
+实测：同一台机器上 **5 个人造账号并行注册 2.9 s 全部成功**；模拟器里**并没有**装这个 App
+（`adb shell pm list packages | grep channel` 为空），所有产出都来自报文本身。
+
 ## 上游网络抖动（本机实测）
 
 目录 CDN（`d11absfiaqzcnz.cloudfront.net`）会偶发 TLS 握手超时（一次 18–28 s，甚至直接失败）。
@@ -171,6 +186,7 @@ python -X utf8 stress_test.py --base http://127.0.0.1:8921 --concurrency 8
 | `demo.html` | 演示面板（bot 列表 / 对话 / 运行态 / 一键建号） |
 | `stress_test.py` | HTTP 层压测，13 个断言 |
 | `pool_test.py` | 账号层压测：冷启动自动新号 / 突发扩容 / 重启复用，12 个断言 |
+| `pure_protocol_demo.py` | **纯协议最小复现**：人造 device_id → 注册 → JWT → publictoken → 对话，仅标准库，无 APK/模拟器/Frida |
 | `docs/ANALYSIS.md` | 逆向分析报告（协议、鉴权链、坑表、绘图链路） |
 | `docs/NEWAPI_INTEGRATION.md` | new-api 对接指南（路径 A 零代码 / 路径 B 原生渠道 + 参数与坑表） |
 | `artifacts/` | 原始报文留档（多轮对话 XML、绘图报文、dex 字符串） |
