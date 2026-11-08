@@ -25,5 +25,6 @@ artifacts2/
 server.err
 
 # graft code-graph cache
+graft/
 cache/
 cache/
