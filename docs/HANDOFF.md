@@ -10,13 +10,13 @@
 
 | 项 | 值 |
 |---|---|
-| 仓库 | `https://github.com/lza6/Channel-AI-APP-2api`（master） |
-| 上游 | Channel App（`com.channel.ai` 1.6.1.3330）→ XMPP `x.siki.ai:443`（直连 TLS） |
+| 仓库 | `https://github.com/lza6/Channel-AI-APP-2api`（main） |
+| 上游 | Channel App（`com.channel.ai` **1.7.1.4020**，2026-11-09 全量复核）→ XMPP `x.siki.ai:443`（直连 TLS） |
 | 桥接层 | `demo_server.py`（Python 标准库，OpenAI 兼容，默认端口 8921） |
 | 能力 | 对话 169 个 bot（角色扮演，NSFW 可选）+ 绘图 18 个 bot（一次 prompt 出 3 张无水印直链） |
 | 并发模型 | 一个 XMPP 会话只能跑一个对话 ⇒ 并发＝会话池容量，池满自动扩容/排队 |
 | 计费单位 | 上游是 `energy`（每号免费 5 点，文本不扣、绘图扣 1），**不是 token** |
-| 实测时延 | 首字节 2.5–10 s、整轮 6–10 s（p95 ~19 s）、绘图 60–240 s |
+| 实测时延 | 首字节 2.5–10 s、整轮 6–10 s（p95 ~19 s）、**绘图 18–30 s**（1.7.1 实测） |
 
 ---
 
