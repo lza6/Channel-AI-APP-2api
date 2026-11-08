@@ -3,6 +3,7 @@
 把 Channel（AI 角色陪伴 App）的 XMPP 后端封装成 **OpenAI 兼容 HTTP API**，附本地演示页与压测脚本。
 纯 Python 标准库实现，无第三方依赖。
 
+* 仓库：https://github.com/lza6/Channel-AI-APP-2api
 * 逆向细节：见 [`docs/ANALYSIS.md`](docs/ANALYSIS.md)
 * **对接 new-api：见 [`docs/NEWAPI_INTEGRATION.md`](docs/NEWAPI_INTEGRATION.md)**（含渠道参数、超时、坑表）
 * **一页交接（给对接会话）：见 [`docs/HANDOFF.md`](docs/HANDOFF.md)**（含可直接粘贴的 prompt）

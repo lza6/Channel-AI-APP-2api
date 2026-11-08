@@ -1,0 +1,51 @@
+# channel_client.py
+
+- md5 · function · L54-L55 — def md5(text: str) -> str
+- resolve_host · function · L64-L90 — def resolve_host(host: str = XMPP_HOST, port: int = XMPP_PORT) -> str
+- _digits · function · L93-L94 — def _digits(text: str) -> str
+- build_resource · function · L97-L99 — def build_resource(version: str = APP_VERSION, country: str = "US") -> str
+- ChannelError · class · L102-L103 — class ChannelError(RuntimeError)
+- dns_override · function · L110-L135 — def dns_override(host: str, port: int = 443)
+- patched · function · L124-L128 — def patched(name, p, family=0, type=0, proto=0, flags=0): # noqa: A002
+- Reply · class · L139-L147 — class Reply
+- ChannelClient · class · L150-L452 — class ChannelClient
+- __init__ · method · L153-L166 — def __init__(self, country: str = "US", timeout: float = 30.0, verbose: bool = False)
+- jid · method · L170-L171 — def jid(self) -> str
+- _log · method · L173-L175 — def _log(self, direction: str, payload: str) -> None
+- _send · method · L177-L184 — def _send(self, xml: str) -> None
+- _read_until · method · L186-L203 — def _read_until(self, predicate, timeout: float) -> str
+- _drain · method · L205-L227 — def _drain(self, seconds: float, predicate=None, quiet: float | None = None) -> str
+- _respond_pings · method · L229-L231 — def _respond_pings(self) -> None
+- connect · method · L234-L247 — def connect(self) -> None
+- register_guest · method · L249-L269 — def register_guest(self) -> tuple[str, str]
+- authenticate · method · L271-L284 — def authenticate(self) -> str
+- bind · method · L286-L293 — def bind(self) -> None
+- fetch_vcard · method · L295-L304 — def fetch_vcard(self) -> dict
+- login · method · L306-L322 — def login(self) -> "ChannelClient"
+- close · method · L324-L332 — def close(self) -> None
+- alive · method · L334-L336 — def alive(self) -> bool
+- ping · method · L338-L361 — def ping(self, timeout: float = 4.0) -> bool
+- chat · method · L364-L452 — def chat(self, bot_jid: str, text: str, timeout: float = 60.0, quiet: float = 2.5, max_seconds: float = 90.0, on_part=None) -> Reply
+- _strip_tags · function · L455-L456 — def _strip_tags(value: str) -> str
+- _message_stanzas · function · L459-L468 — def _message_stanzas(raw: str, bot_jid: str) -> Iterable[tuple[str, str]]
+- _extract_parts · function · L471-L485 — def _extract_parts(raw: str, bot_jid: str, seen: set[str]) -> list[str]
+- _scan_images · function · L488-L515 — def _scan_images(buffer: str) -> list[dict]
+- push · function · L493-L497 — def push(entry: dict) -> None
+- _extract_balance · function · L518-L524 — def _extract_balance(raw: str) -> dict | None
+- rest · function · L528-L551 — def rest(path: str, jwt: str | None = None, jid: str | None = None, base: str = PRIVATE_API, payload: dict | None = None, method: str | None = None, timeout: float = 30.0, retries: int = 1) -> tuple[int, object]
+- _rest_once · function · L554-L573 — def _rest_once(path: str, jwt: str | None = None, jid: str | None = None, base: str = PRIVATE_API, payload: dict | None = None, method: str | None = None, timeout: float = 30.0) -> tuple[int, object]
+- _maybe_json · function · L576-L580 — def _maybe_json(body: bytes)
+- Catalog · class · L583-L643 — class Catalog
+- _path_lock · method · L597-L602 — def _path_lock(cls, path: str) -> threading.Lock
+- _get · method · L605-L619 — def _get(cls, path: str) -> object
+- categories · method · L622-L623 — def categories(cls) -> list[dict]
+- bots · method · L626-L628 — def bots(cls, limit: int = 200, category: str = "newexplore") -> list[dict]
+- search · method · L631-L638 — def search(cls, term: str, limit: int = 30, nsfw: bool = False) -> list[dict]
+- showcase · method · L641-L643 — def showcase(cls, limit: int = 40) -> list[dict]
+- AccountPool · class · L646-L720 — class AccountPool
+- __init__ · method · L649-L660 — def __init__(self, size: int = 2, country: str = "US", verbose: bool = False)
+- acquire · method · L662-L686 — def acquire(self, timeout: float = 90.0) -> ChannelClient
+- release · method · L688-L696 — def release(self, client: ChannelClient) -> None
+- discard · method · L698-L702 — def discard(self, client: ChannelClient) -> None
+- stats · method · L704-L713 — def stats(self) -> dict
+- shutdown · method · L715-L720 — def shutdown(self) -> None

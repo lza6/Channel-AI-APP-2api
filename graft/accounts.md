@@ -1,0 +1,34 @@
+# accounts.py
+
+- Account · class · L29-L44 — class Account
+- key · method · L43-L44 — def key(self) -> str
+- AccountStore · class · L47-L133 — class AccountStore
+- __init__ · method · L50-L55 — def __init__(self, path: str = "accounts.jsonl")
+- _load · method · L57-L70 — def _load(self) -> None
+- _flush · method · L72-L77 — def _flush(self) -> None
+- upsert · method · L79-L83 — def upsert(self, account: Account) -> Account
+- mark_used · method · L85-L90 — def mark_used(self, username: str) -> None
+- mark_failed · method · L92-L101 — def mark_failed(self, username: str, reason: str = "", disable_after: int = 3) -> None
+- candidates · method · L103-L109 — def candidates(self, limit: int) -> list[Account]
+- reserve · method · L111-L116 — def reserve(self, username: str) -> bool
+- unreserve · method · L118-L120 — def unreserve(self, username: str) -> None
+- bindings · method · L122-L124 — def bindings(self) -> list[str]
+- stats · method · L126-L133 — def stats(self) -> dict
+- AccountFactory · class · L136-L248 — class AccountFactory
+- __init__ · method · L139-L148 — def __init__(self, store: AccountStore, country: str = "US", verbose: bool = False, verify: bool = False, max_attempts: int = 3)
+- _finish · method · L151-L188 — def _finish(self, client: ChannelClient, account: Account | None) -> Account
+- new_client · method · L191-L228 — def new_client(self, reuse: Account | None = None) -> ChannelClient
+- provision · method · L230-L248 — def provision(self) -> tuple[ChannelClient, Account]
+- SessionPool · class · L251-L481 — class SessionPool
+- __init__ · method · L261-L286 — def __init__(self, max_size: int = 4, min_idle: int | None = None, store_path: str = "accounts.jsonl", country: str = "US", verbose: bool = False, acquire_timeout: float = 120.0, autoscale: bool = True, hard_max: int | None = None, grow_step: int = 2, max_registrations_per_min: int = 30)
+- _rate_limit_wait · method · L289-L299 — def _rate_limit_wait(self) -> None
+- _create · method · L301-L311 — def _create(self) -> ChannelClient
+- _spawn_one · method · L313-L333 — def _spawn_one(self) -> None
+- _maintain · method · L335-L354 — def _maintain(self) -> None
+- _grow_locked · method · L356-L363 — def _grow_locked(self) -> int
+- prewarm · method · L366-L375 — def prewarm(self, count: int | None = None, block: bool = True) -> dict
+- acquire · method · L377-L430 — def acquire(self, timeout: float | None = None) -> ChannelClient
+- release · method · L432-L446 — def release(self, client: ChannelClient, healthy: bool = True) -> None
+- discard · method · L448-L449 — def discard(self, client: ChannelClient) -> None
+- stats · method · L451-L473 — def stats(self) -> dict
+- shutdown · method · L475-L481 — def shutdown(self) -> None
