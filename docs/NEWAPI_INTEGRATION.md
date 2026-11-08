@@ -1,8 +1,10 @@
 # 对接 new-api 指南（Channel 2API）
 
-> 本文给"另一个会话来执行对接"用。目标：把本仓库的 Channel 上游接到 new-api，跑通
-> `/v1/chat/completions`（含 SSE）与 `/v1/images/generations`。
-> 所有数字都是本机实测（2026-10-29，见 `docs/ANALYSIS.md`）。
+> 本文给"另一个会话来执行对接"用，**自包含**：不需要读其它文档即可开工。
+> 目标：把本仓库的 Channel 上游接到 new-api，跑通 `/v1/chat/completions`（含 SSE）与
+> `/v1/images/generations`。
+> 协议于 **2026-11-09 在 app 1.7.1.4020 上全量复核通过**（零 breaking change，13/13 压测 PASS）；
+> 压测与端点实测细节见 `docs/ANALYSIS.md` §5.2 与 README「第二轮深度验证」。
 
 ---
 
@@ -19,7 +21,7 @@
 |---|---|---|
 | 首字节 | 2.5–10 s（个别 bot 40–90 s） | 首包超时别设 < 15 s |
 | 整轮 | 6–10 s（p95 ~19 s） | 非流式超时 ≥ 60 s |
-| 绘图 | 60–240 s | 绘图渠道 `relay_timeout_seconds` ≥ 400 |
+| 绘图 | **18–30 s**（1.7.1.4020 实测，1.6.1 时代是 60–240 s） | 绘图渠道 `relay_timeout_seconds` ≥ 120 即可，保守仍可设 400 |
 | 单账号并发 | **1**（一个 XMPP 会话串行） | 并发能力 ＝ 账号池大小 |
 | 账号预热 | 4–5 s/个（并行 4 个 ≈ 14 s 全好） | 池要预热，不要懒加载 |
 | energy | 5/账号（免费），文本不扣、绘图扣 1 | 绘图是消耗品，注意号池规模 |
