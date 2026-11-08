@@ -23,3 +23,7 @@ Thumbs.db
 # raw session captures contain live jids/jwts/publictokens — keep local only
 artifacts2/
 server.err
+
+# graft code-graph cache
+cache/
+cache/
